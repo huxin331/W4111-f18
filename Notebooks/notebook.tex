@@ -1,0 +1,3632 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{w4111-L6-f2018-Web-Advanced-Relational}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Test
+
+Test
+
+Test
+
+Test
+
+Test
+
+\section{Introduction to Databases: Web Application and More Relational
+Model}\label{introduction-to-databases-web-application-and-more-relational-model}
+
+    \subsection{Initialize Notebook Runtime and
+Libraries}\label{initialize-notebook-runtime-and-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} sql
+        \PY{o}{\PYZpc{}}\PY{k}{sql} mysql+pymysql://dbuser:dbuser@localhost/lahman2017
+        \PY{o}{\PYZpc{}}\PY{k}{sql} select * from people where playerid=\PYZsq{}willite01\PYZsq{}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pymysql}\PY{n+nn}{.}\PY{n+nn}{cursors}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        
+        \PY{c+c1}{\PYZsh{} The database server is running somewhere in the network.}
+        \PY{c+c1}{\PYZsh{} I must specify the IP address (HW server) and port number}
+        \PY{c+c1}{\PYZsh{} (connection that SW server is listening on)}
+        \PY{c+c1}{\PYZsh{} Also, I do not want to allow anyone to access the database}
+        \PY{c+c1}{\PYZsh{} and different people have different permissions. So, the}
+        \PY{c+c1}{\PYZsh{} client must log on.}
+        
+        
+        \PY{c+c1}{\PYZsh{} Connect to the database over the network. Use the connection}
+        \PY{c+c1}{\PYZsh{} to send commands to the DB.}
+        \PY{n}{cnx} \PY{o}{=} \PY{n}{pymysql}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localhost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{user}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{password}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{db}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lahman2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{charset}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8mb4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{cursorclass}\PY{o}{=}\PY{n}{pymysql}\PY{o}{.}\PY{n}{cursors}\PY{o}{.}\PY{n}{DictCursor}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 rows affected.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{json}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select * from people where playerid=\PYZsq{}willite01\PYZsq{}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} [('willite01', '1918', '8', '30', 'USA', 'CA', 'San Diego', '2002', '7', '5', 'USA', 'FL', 'Inverness', 'Ted', 'Williams', 'Theodore Samuel', '205', 75, 'L', 'R', '1939-04-20', '1960-09-28', 'willt103', 'willite01')]
+\end{Verbatim}
+            
+    \subsection{Lecture Overview}\label{lecture-overview}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Questions and answers. 
+\item
+  Discussion of HW 1 
+\item
+  JOIN 
+\item
+  REST API 
+\item
+  HW 2 Overview
+\end{enumerate}
+
+    \subsection{Questions}\label{questions}
+
+\subsubsection{From Classroom}\label{from-classroom}
+
+\subsubsection{From Piazza}\label{from-piazza}
+
+\paragraph{CVN Issues}\label{cvn-issues}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The CVN team is working on the quality issues and the screen layout
+  problems. 
+\item
+  This is my first CVN course. I forgot to have video office hours. This
+  was a rookie mistake and I will be scheduling video OH.
+\end{enumerate}
+
+    \subsection{HW 1 Discussion}\label{hw-1-discussion}
+
+\subsubsection{Motivation}\label{motivation}
+
+\begin{itemize}
+\item
+  Many students have asked the motivation HW 1, especially the CSV
+  implementation.
+\item
+  Motivation:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The benefits of a DBMS relative to custom coding is unclear until
+    you try to do something relatively complex in custom code.
+  \item
+    Module II focuses on DBMS implementation architecture and functions.
+    The material is just slides and words if you have not done a little
+    bit of implementation of concepts.
+  \end{itemize}
+\item
+  I simplified the Top Ten Hitters query that I provided to you. A more
+  precise implementation of what I specified in the definition is
+\end{itemize}
+
+\begin{verbatim}
+select * from
+    (select people.playerid, nameLast, nameFirst, sum(appearances.g_all) as total_games, max(yearID)
+        from
+        people join appearances on people.playerid=appearances.playerid
+        group by playerID
+        having max(yearID) >= '1960') as a
+    join
+        (select playerID, sum(batting.h) as total_h, sum(batting.ab) as total_ab, 
+                sum(batting.h)/sum(batting.ab) as avg
+            from batting
+            group by playerid
+            having sum(batting.ab) >= 200
+            ) as b
+    on a.playerid = b.playerid
+order by avg desc
+limit 10
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{q} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{select * from}
+        \PY{l+s+s2}{	(select people.playerid, nameLast, nameFirst, sum(appearances.g\PYZus{}all) as total\PYZus{}games, max(yearID)}
+        \PY{l+s+s2}{		from}
+        \PY{l+s+s2}{		people join appearances on people.playerid=appearances.playerid}
+        \PY{l+s+s2}{		group by playerID}
+        \PY{l+s+s2}{		having max(yearID) \PYZgt{}= }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{1960}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{) as a}
+        \PY{l+s+s2}{	join}
+        \PY{l+s+s2}{		(select playerID, sum(batting.h) as total\PYZus{}h, sum(batting.ab) as total\PYZus{}ab, }
+        \PY{l+s+s2}{				sum(batting.h)/sum(batting.ab) as avg}
+        \PY{l+s+s2}{			from batting}
+        \PY{l+s+s2}{            group by playerid}
+        \PY{l+s+s2}{            having sum(batting.ab) \PYZgt{}= 200}
+        \PY{l+s+s2}{            ) as b}
+        \PY{l+s+s2}{	on a.playerid = b.playerid}
+        \PY{l+s+s2}{order by avg desc}
+        \PY{l+s+s2}{limit 10}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{n}{cursor} \PY{o}{=} \PY{n}{cnx}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{q}\PY{p}{)}
+        \PY{n}{result} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}         avg max(yearID) nameFirst  nameLast   playerID   playerid  total\_ab  \textbackslash{}
+        0  0.344407        1960       Ted  Williams  willite01  willite01    7706.0   
+        1  0.338178        2001      Tony     Gwynn  gwynnto01  gwynnto01    9288.0   
+        2  0.330842        1963      Stan    Musial  musiast01  musiast01   10972.0   
+        3  0.327887        1999      Wade     Boggs  boggswa01  boggswa01    9180.0   
+        4  0.327751        1985       Rod     Carew  carewro01  carewro01    9315.0   
+        5  0.318056        1995     Kirby   Puckett  puckeki01  puckeki01    7244.0   
+        6  0.317597        2011  Vladimir  Guerrero  guerrvl01  guerrvl01    8155.0   
+        7  0.317326        1972   Roberto  Clemente  clemero01  clemero01    9454.0   
+        8  0.316751        2017    Miguel   Cabrera  cabremi01  cabremi01    8322.0   
+        9  0.316378        2013      Todd    Helton  heltoto01  heltoto01    7962.0   
+        
+           total\_games  total\_h  
+        0       2292.0   2654.0  
+        1       2440.0   3141.0  
+        2       3026.0   3630.0  
+        3       2440.0   3010.0  
+        4       2469.0   3053.0  
+        5       1783.0   2304.0  
+        6       2147.0   2590.0  
+        7       2433.0   3000.0  
+        8       2226.0   2636.0  
+        9       2247.0   2519.0  
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  This is the generated query plan for the SQL and corresponding CSV
+  impl. functions.
+\item
+  Having implemented the CSV top-ten, you have effectively generated a
+  query plan and have more intuition into query processing.
+\item
+  You have also seen the benefits of indexes first hand.
+\end{itemize}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{SQL Execution Plan for Top Ten Hitters}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\tightlist
+\item
+  Execution output of my implementation.
+\end{itemize}
+
+    \begin{verbatim}
+Start is  1538055561.518624
+Data loaded, time =  1538055563.985654
+There are 10401 eligible players.
+There are 19370 total players.
+There are 102816 batting records.
+There are 104256 appearance records.
+Processed  500 eligible players. Total with more than 200 hits is  500
+Processed  1000 eligible players. Total with more than 200 hits is  1000
+Processed  1500 eligible players. Total with more than 200 hits is  1500
+Processed  2000 eligible players. Total with more than 200 hits is  2000
+Processed  2500 eligible players. Total with more than 200 hits is  2500
+Processed  3000 eligible players. Total with more than 200 hits is  3000
+Processed  3500 eligible players. Total with more than 200 hits is  3500
+Got all averages. Now sorting.
+['willite01', 'Williams', 'Ted', 2654, 7706, 0.3444069556189982]
+['gwynnto01', 'Gwynn', 'Tony', 3141, 9288, 0.3381782945736434]
+['musiast01', 'Musial', 'Stan', 3630, 10972, 0.3308421436383522]
+['turnetr01', 'Turner', 'Trea', 114, 347, 0.3285302593659942]
+['boggswa01', 'Boggs', 'Wade', 3010, 9180, 0.32788671023965144]
+['carewro01', 'Carew', 'Rod', 3053, 9315, 0.32775093934514227]
+['cabremi01', 'Cabrera', 'Miguel', 2519, 7853, 0.3207691328154845]
+['puckeki01', 'Puckett', 'Kirby', 2304, 7244, 0.3180563224737714]
+['guerrvl01', 'Guerrero', 'Vladimir', 2590, 8155, 0.31759656652360513]
+Start time =  1538055561.518624
+End time =  1538055849.963139
+Loading elapsed time =  2.4670300483703613
+Execution elapsed =  288.4445149898529
+Execution elapsed - load time =  285.97748494148254
+\end{verbatim}
+
+    \begin{itemize}
+\item
+  I added non-unique index support to my CSVDataTable. I will provide
+  the implementation and walk through it.
+\item
+  Execution output.
+\end{itemize}
+
+\begin{verbatim}
+Start is  1538058864.172746
+Loading tables.
+Tables loaded.
+Ten greatest hitters are:
+['willite01', 'Williams', 'Ted', 'willite01', 2654, 7706, 0.3444069556189982]
+['gwynnto01', 'Gwynn', 'Tony', 'gwynnto01', 3141, 9288, 0.3381782945736434]
+['musiast01', 'Musial', 'Stan', 'musiast01', 3630, 10972, 0.3308421436383522]
+['boggswa01', 'Boggs', 'Wade', 'boggswa01', 3010, 9180, 0.32788671023965144]
+['carewro01', 'Carew', 'Rod', 'carewro01', 3053, 9315, 0.32775093934514227]
+['cabremi01', 'Cabrera', 'Miguel', 'cabremi01', 2519, 7853, 0.3207691328154845]
+['puckeki01', 'Puckett', 'Kirby', 'puckeki01', 2304, 7244, 0.3180563224737714]
+['guerrvl01', 'Guerrero', 'Vladimir', 'guerrvl01', 2590, 8155, 0.31759656652360513]
+['clemero01', 'Clemente', 'Roberto', 'clemero01', 3000, 9454, 0.31732599957689867]
+['heltoto01', 'Helton', 'Todd', 'heltoto01', 2519, 7962, 0.31637779452398895]
+Start time in seconds since epoch is:  1538058864.172746
+Load complete time in seconds since epoch is:  1538058867.264967
+End of computation in seconds since epoc is  1538058867.657491
+Total elapsed time in seconds =  3.4847450256347656
+Query execution after load =  0.39252400398254395
+\end{verbatim}
+
+\begin{itemize}
+\item
+  This will give you insight into indexes and query plans.
+\item
+  In essence, you have implemented a very, very simple RDB.
+\end{itemize}
+
+    \subsection{JOIN}\label{join}
+
+\subsubsection{Relational Algebra}\label{relational-algebra}
+
+\begin{itemize}
+\tightlist
+\item
+  Join and Cartesian Product are closely replaced. Let \(c\) be some
+  condition
+
+  \begin{equation}
+  \sigma_c(A \times B) = \sigma_c(A) \times \sigma_c(B) 
+  \end{equation}
+\item
+  Without a condition \(A\  \times B = A \bowtie B\).
+\end{itemize}
+
+ 
+
+    \begin{itemize}
+\tightlist
+\item
+  Conceptually, you can think of a join being the following algorithm.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{CSVTable}
+        
+        \PY{c+c1}{\PYZsh{} NOTE \PYZhy{}\PYZhy{} Not extensively tested.}
+        
+        \PY{k}{def} \PY{n+nf}{equi\PYZus{}join}\PY{p}{(}\PY{n}{t\PYZus{}left}\PY{p}{,} \PY{n}{t\PYZus{}right}\PY{p}{,} \PY{n}{fields}\PY{p}{,} \PY{n}{on\PYZus{}field}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    A simple Python program that explains the basics of JOIN by doing an Equi\PYZhy{}Join.}
+        \PY{l+s+sd}{    :param t\PYZus{}left: Left table}
+        \PY{l+s+sd}{    :param t\PYZus{}right: Right table}
+        \PY{l+s+sd}{    :param fields: The Project clause to apply to the JOIN result.}
+        \PY{l+s+sd}{    :param on\PYZus{}field: The single, common column name to JOIN on.}
+        \PY{l+s+sd}{    :return: }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{c+c1}{\PYZsh{} Create an empty table to hold the result.}
+            \PY{n}{result} \PY{o}{=} \PY{n}{CSVTable}\PY{o}{.}\PY{n}{CSVTable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Get all of the rows from the left table.}
+            \PY{n}{left\PYZus{}rows} \PY{o}{=} \PY{n}{t\PYZus{}left}\PY{o}{.}\PY{n}{get\PYZus{}rows}\PY{p}{(}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} For every row in the left table ...}
+            \PY{k}{for} \PY{n}{r\PYZus{}l} \PY{o+ow}{in} \PY{n}{left\PYZus{}rows}\PY{p}{:}
+        
+                \PY{c+c1}{\PYZsh{} Get the value of the \PYZdq{}on\PYZdq{} field for the join.}
+                \PY{n}{key} \PY{o}{=} \PY{n}{r\PYZus{}l}\PY{p}{[}\PY{n}{on\PYZus{}field}\PY{p}{]}
+        
+                \PY{c+c1}{\PYZsh{} Do a select on the right table to find all rows with the}
+                \PY{c+c1}{\PYZsh{} corresponding row having the column = current value.}
+                \PY{n}{r\PYZus{}rows} \PY{o}{=} \PY{n}{t\PYZus{}right}\PY{o}{.}\PY{n}{find\PYZus{}by\PYZus{}template} \PY{p}{(}\PY{p}{\PYZob{}} \PY{n}{on\PYZus{}field}\PY{p}{:} \PY{n}{key}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rows}
+                
+                \PY{c+c1}{\PYZsh{} If we managed to get some rows from the right table.}
+                \PY{k}{if} \PY{n}{r\PYZus{}rows}\PY{p}{:}
+                    
+                    \PY{c+c1}{\PYZsh{} For every matching row.}
+                    \PY{k}{for} \PY{n}{r\PYZus{}r} \PY{o+ow}{in} \PY{n}{r\PYZus{}rows}\PY{p}{:}
+                        
+                        \PY{c+c1}{\PYZsh{} This is Python stuff. Basically, we are merging the left row and}
+                        \PY{c+c1}{\PYZsh{} right row into a single row. We then insert into the result.}
+                        \PY{n}{t} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{r\PYZus{}l}\PY{p}{)}
+                        \PY{n}{t}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{r\PYZus{}r}\PY{p}{)}
+                        \PY{n}{result}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+                        \PY{c+c1}{\PYZsh{}print(\PYZdq{}Inserted \PYZdq{}, str(t))}
+        
+            \PY{c+c1}{\PYZsh{} Perform a project on the result of the join.}
+            \PY{n}{ans} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{project}\PY{p}{(}\PY{n}{fields}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Return the result table.}
+            \PY{k}{return} \PY{n}{ans}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ModuleNotFoundError                       Traceback (most recent call last)
+
+        <ipython-input-2-6d1fe43aff56> in <module>()
+    ----> 1 import CSVTable
+          2 
+          3 \# NOTE -- Not extensively tested.
+          4 
+          5 def equi\_join(t\_left, t\_right, fields, on\_field):
+
+
+        ModuleNotFoundError: No module named 'CSVTable'
+
+    \end{Verbatim}
+
+    \subsubsection{SQL}\label{sql}
+
+\paragraph{Concept}\label{concept}
+
+\begin{itemize}
+\item
+  The full MySQL and most DB engine syntax and functions are complex and
+  powerful.
+\item
+  We will focus on the most common and useful capabilities.
+\item
+  The basic syntax is:
+\end{itemize}
+
+\texttt{select\ \textless{}a.columns\textgreater{},\ \textless{}b.columns\textgreater{}\ from\ \ \ \ \ a\ join\ b\ on\ \textless{}join\ condition\textgreater{}\ \ \ \ \ where\ \ \ \ \ \textless{}select\ condition\textgreater{}}
+
+\begin{itemize}
+\tightlist
+\item
+  Again, the best way to learn is examples and practice.
+\end{itemize}
+
+    \paragraph{Examples}\label{examples}
+
+\subparagraph{Core Player Information and
+Appearances}\label{core-player-information-and-appearances}
+
+Basic Join
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select \PYZbs{}
+            \PY{n}{people}\PY{o}{.}\PY{n}{playerID} \PY{k}{as} \PY{n}{playerid}\PY{p}{,} \PY{n}{nameLast}\PY{p}{,} \PY{n}{nameFirst}\PY{p}{,} \PYZbs{}
+            \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID}\PY{p}{,} \PY{n}{G\PYZus{}all} \PY{k+kn}{from} \PYZbs{}
+        \PY{n+nn}{people} \PY{n}{join} \PY{n}{appearances} \PYZbs{}
+        \PY{n}{on} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+        \PY{n}{limit} \PY{l+m+mi}{100}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} [('aardsda01', 'Aardsma', 'David', 'ATL', '2015', '33'),
+         ('aardsda01', 'Aardsma', 'David', 'BOS', '2008', '47'),
+         ('aardsda01', 'Aardsma', 'David', 'CHA', '2007', '25'),
+         ('aardsda01', 'Aardsma', 'David', 'CHN', '2006', '45'),
+         ('aardsda01', 'Aardsma', 'David', 'NYA', '2012', '1'),
+         ('aardsda01', 'Aardsma', 'David', 'NYN', '2013', '43'),
+         ('aardsda01', 'Aardsma', 'David', 'SEA', '2009', '73'),
+         ('aardsda01', 'Aardsma', 'David', 'SEA', '2010', '53'),
+         ('aardsda01', 'Aardsma', 'David', 'SFN', '2004', '11'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1966', '158'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1967', '155'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1968', '160'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1969', '147'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1970', '150'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1971', '139'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1972', '129'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1973', '120'),
+         ('aaronha01', 'Aaron', 'Hank', 'ATL', '1974', '112'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1954', '122'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1955', '153'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1956', '153'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1957', '151'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1958', '153'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1959', '154'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1960', '153'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1961', '155'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1962', '156'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1963', '161'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1964', '145'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML1', '1965', '150'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML4', '1975', '137'),
+         ('aaronha01', 'Aaron', 'Hank', 'ML4', '1976', '85'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ATL', '1968', '98'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ATL', '1969', '49'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ATL', '1970', '44'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ATL', '1971', '25'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ML1', '1962', '141'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ML1', '1963', '72'),
+         ('aaronto01', 'Aaron', 'Tommie', 'ML1', '1965', '8'),
+         ('aasedo01', 'Aase', 'Don', 'BAL', '1985', '54'),
+         ('aasedo01', 'Aase', 'Don', 'BAL', '1986', '66'),
+         ('aasedo01', 'Aase', 'Don', 'BAL', '1987', '7'),
+         ('aasedo01', 'Aase', 'Don', 'BAL', '1988', '35'),
+         ('aasedo01', 'Aase', 'Don', 'BOS', '1977', '13'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1978', '29'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1979', '37'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1980', '40'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1981', '39'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1982', '24'),
+         ('aasedo01', 'Aase', 'Don', 'CAL', '1984', '23'),
+         ('aasedo01', 'Aase', 'Don', 'LAN', '1990', '32'),
+         ('aasedo01', 'Aase', 'Don', 'NYN', '1989', '49'),
+         ('abadan01', 'Abad', 'Andy', 'BOS', '2003', '9'),
+         ('abadan01', 'Abad', 'Andy', 'CIN', '2006', '5'),
+         ('abadan01', 'Abad', 'Andy', 'OAK', '2001', '1'),
+         ('abadfe01', 'Abad', 'Fernando', 'BOS', '2016', '18'),
+         ('abadfe01', 'Abad', 'Fernando', 'BOS', '2017', '48'),
+         ('abadfe01', 'Abad', 'Fernando', 'HOU', '2010', '22'),
+         ('abadfe01', 'Abad', 'Fernando', 'HOU', '2011', '29'),
+         ('abadfe01', 'Abad', 'Fernando', 'HOU', '2012', '37'),
+         ('abadfe01', 'Abad', 'Fernando', 'MIN', '2016', '39'),
+         ('abadfe01', 'Abad', 'Fernando', 'OAK', '2014', '69'),
+         ('abadfe01', 'Abad', 'Fernando', 'OAK', '2015', '62'),
+         ('abadfe01', 'Abad', 'Fernando', 'WAS', '2013', '39'),
+         ('abadijo01', 'Abadie', 'John', 'BR2', '1875', '1'),
+         ('abadijo01', 'Abadie', 'John', 'PH3', '1875', '11'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'BSN', '1903', '136'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'BSN', '1904', '154'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'BSN', '1905', '153'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'BSN', '1910', '52'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PHI', '1897', '3'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PHI', '1898', '25'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PIT', '1907', '147'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PIT', '1908', '146'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PIT', '1909', '36'),
+         ('abbated01', 'Abbaticchio', 'Ed', 'PIT', '1910', '3'),
+         ('abbeybe01', 'Abbey', 'Bert', 'BRO', '1895', '8'),
+         ('abbeybe01', 'Abbey', 'Bert', 'BRO', '1896', '25'),
+         ('abbeybe01', 'Abbey', 'Bert', 'CHN', '1893', '7'),
+         ('abbeybe01', 'Abbey', 'Bert', 'CHN', '1894', '11'),
+         ('abbeybe01', 'Abbey', 'Bert', 'CHN', '1895', '1'),
+         ('abbeybe01', 'Abbey', 'Bert', 'WAS', '1892', '27'),
+         ('abbeych01', 'Abbey', 'Charlie', 'WAS', '1893', '31'),
+         ('abbeych01', 'Abbey', 'Charlie', 'WAS', '1894', '129'),
+         ('abbeych01', 'Abbey', 'Charlie', 'WAS', '1895', '133'),
+         ('abbeych01', 'Abbey', 'Charlie', 'WAS', '1896', '79'),
+         ('abbeych01', 'Abbey', 'Charlie', 'WAS', '1897', '80'),
+         ('abbotda01', 'Abbott', 'Dan', 'TL2', '1890', '3'),
+         ('abbotfr01', 'Abbott', 'Fred', 'CLE', '1903', '77'),
+         ('abbotfr01', 'Abbott', 'Fred', 'CLE', '1904', '41'),
+         ('abbotfr01', 'Abbott', 'Fred', 'PHI', '1905', '42'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'DET', '1983', '7'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'DET', '1984', '13'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'OAK', '1973', '5'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'OAK', '1974', '19'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'OAK', '1975', '30'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'OAK', '1976', '19'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'SEA', '1977', '36'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'SEA', '1978', '29'),
+         ('abbotgl01', 'Abbott', 'Glenn', 'SEA', '1979', '23')]
+\end{Verbatim}
+            
+    With WHERE Condition
+
+    \begin{itemize}
+\tightlist
+\item
+  Core information about players who appeared for BOS and were born in
+  San Diego.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select \PYZbs{}
+            \PY{n}{people}\PY{o}{.}\PY{n}{playerID} \PY{k}{as} \PY{n}{playerid}\PY{p}{,} \PY{n}{nameLast}\PY{p}{,} \PY{n}{nameFirst}\PY{p}{,} \PYZbs{}
+            \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID}\PY{p}{,} \PY{n}{G\PYZus{}all} \PY{k+kn}{from} \PYZbs{}
+        \PY{n+nn}{people} \PY{n}{join} \PY{n}{appearances} \PYZbs{}
+            \PY{n}{on} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+        \PY{n}{where} \PYZbs{}
+            \PY{n}{appearances}\PY{o}{.}\PY{n}{teamID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{people}\PY{o}{.}\PY{n}{birthCity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Diego}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+        \PY{n}{limit} \PY{l+m+mi}{100}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+52 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [('berryqu01', 'Berry', 'Quintin', 'BOS', '2013', '13'),
+         ('blackti01', 'Blackwell', 'Tim', 'BOS', '1974', '44'),
+         ('blackti01', 'Blackwell', 'Tim', 'BOS', '1975', '59'),
+         ('boonera01', 'Boone', 'Ray', 'BOS', '1960', '34'),
+         ('gonzaad01', 'Gonzalez', 'Adrian', 'BOS', '2011', '159'),
+         ('gonzaad01', 'Gonzalez', 'Adrian', 'BOS', '2012', '123'),
+         ('harshja01', 'Harshman', 'Jack', 'BOS', '1959', '9'),
+         ('johnsde01', 'Johnson', 'Deron', 'BOS', '1974', '11'),
+         ('johnsde01', 'Johnson', 'Deron', 'BOS', '1975', '3'),
+         ('johnsde01', 'Johnson', 'Deron', 'BOS', '1976', '15'),
+         ('mitchke01', 'Mitchell', 'Kevin', 'BOS', '1996', '27'),
+         ('mitchke02', 'Mitchell', 'Keith', 'BOS', '1998', '23'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1963', '29'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1964', '32'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1965', '34'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1966', '12'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1967', '10'),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', '1968', '11'),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', '1983', '3'),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', '1984', '29'),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', '1985', '25'),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', '1986', '26'),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', '1987', '30'),
+         ('osullse01', "O'Sullivan", 'Sean', 'BOS', '2016', '5'),
+         ('puntoni01', 'Punto', 'Nick', 'BOS', '2012', '65'),
+         ('rainech01', 'Rainey', 'Chuck', 'BOS', '1979', '20'),
+         ('rainech01', 'Rainey', 'Chuck', 'BOS', '1980', '16'),
+         ('rainech01', 'Rainey', 'Chuck', 'BOS', '1981', '11'),
+         ('rainech01', 'Rainey', 'Chuck', 'BOS', '1982', '27'),
+         ('rohrbi01', 'Rohr', 'Billy', 'BOS', '1967', '10'),
+         ('tatumji01', 'Tatum', 'Jim', 'BOS', '1996', '2'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1939', '149'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1940', '144'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1941', '143'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1942', '150'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1946', '150'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1947', '156'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1948', '137'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1949', '155'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1950', '89'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1951', '148'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1952', '6'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1953', '37'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1954', '117'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1955', '98'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1956', '136'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1957', '132'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1958', '129'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1959', '103'),
+         ('willite01', 'Williams', 'Ted', 'BOS', '1960', '113'),
+         ('wilsoji02', 'Wilson', 'Jim', 'BOS', '1945', '25'),
+         ('wilsoji02', 'Wilson', 'Jim', 'BOS', '1946', '1')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Just the player names, playerID and total games. Not individual
+  seasons.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select \PYZbs{}
+            \PY{n}{people}\PY{o}{.}\PY{n}{playerID} \PY{k}{as} \PY{n}{playerid}\PY{p}{,} \PY{n}{nameLast}\PY{p}{,} \PY{n}{nameFirst}\PY{p}{,} \PYZbs{}
+            \PY{n}{teamID}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{G\PYZus{}all}\PY{p}{)} \PY{k+kn}{from} \PYZbs{}
+        \PY{n+nn}{people} \PY{n}{join} \PY{n}{appearances} \PYZbs{}
+            \PY{n}{on} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+        \PY{n}{where} \PYZbs{}
+            \PY{n}{appearances}\PY{o}{.}\PY{n}{teamID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{people}\PY{o}{.}\PY{n}{birthCity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Diego}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+        \PY{n}{group} \PYZbs{}
+            \PY{n}{by} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+        \PY{n}{limit} \PY{l+m+mi}{100}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+17 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} [('berryqu01', 'Berry', 'Quintin', 'BOS', 13.0),
+         ('blackti01', 'Blackwell', 'Tim', 'BOS', 103.0),
+         ('boonera01', 'Boone', 'Ray', 'BOS', 34.0),
+         ('gonzaad01', 'Gonzalez', 'Adrian', 'BOS', 282.0),
+         ('harshja01', 'Harshman', 'Jack', 'BOS', 9.0),
+         ('johnsde01', 'Johnson', 'Deron', 'BOS', 29.0),
+         ('mitchke01', 'Mitchell', 'Kevin', 'BOS', 27.0),
+         ('mitchke02', 'Mitchell', 'Keith', 'BOS', 23.0),
+         ('morehda01', 'Morehead', 'Dave', 'BOS', 128.0),
+         ('nippeal01', 'Nipper', 'Al', 'BOS', 113.0),
+         ('osullse01', "O'Sullivan", 'Sean', 'BOS', 5.0),
+         ('puntoni01', 'Punto', 'Nick', 'BOS', 65.0),
+         ('rainech01', 'Rainey', 'Chuck', 'BOS', 74.0),
+         ('rohrbi01', 'Rohr', 'Billy', 'BOS', 10.0),
+         ('tatumji01', 'Tatum', 'Jim', 'BOS', 2.0),
+         ('willite01', 'Williams', 'Ted', 'BOS', 2292.0),
+         ('wilsoji02', 'Wilson', 'Jim', 'BOS', 26.0)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  I am only in interested in the players who played more than 50 games
+  in a season at least once and whose total number of games is more than
+  100.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select \PYZbs{}
+             \PY{n}{people}\PY{o}{.}\PY{n}{playerID} \PY{k}{as} \PY{n}{playerid}\PY{p}{,} \PY{n}{nameLast}\PY{p}{,} \PY{n}{nameFirst}\PY{p}{,} \PYZbs{}
+             \PY{n}{teamID}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{G\PYZus{}all}\PY{p}{)} \PY{k}{as} \PY{n}{total\PYZus{}games}\PY{p}{,} \PYZbs{}
+             \PY{n+nb}{max}\PY{p}{(}\PY{n}{cast}\PY{p}{(}\PY{n}{appearances}\PY{o}{.}\PY{n}{G\PYZus{}all} \PY{k}{as} \PY{n}{unsigned}\PY{p}{)}\PY{p}{)} \PY{k}{as} \PY{err}{`}\PY{n}{Max} \PY{n}{games}\PY{p}{,} \PY{n+nb}{any} \PY{n}{season}\PY{err}{`} \PY{k+kn}{from} \PYZbs{}
+         \PY{n+nn}{people} \PY{n}{join} \PY{n}{appearances} \PYZbs{}
+             \PY{n}{on} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+         \PY{n}{where} \PYZbs{}
+             \PY{n}{appearances}\PY{o}{.}\PY{n}{teamID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{people}\PY{o}{.}\PY{n}{birthCity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Diego}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+             \PY{o+ow}{and} \PYZbs{}
+             \PY{n}{appearances}\PY{o}{.}\PY{n}{G\PYZus{}all} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50} \PYZbs{}
+         \PY{n}{group} \PYZbs{}
+             \PY{n}{by} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+         \PY{n}{having} \PYZbs{}
+             \PY{n}{total\PYZus{}games} \PY{o}{\PYZgt{}} \PY{l+m+mi}{100} \PYZbs{}
+         \PY{n}{limit} \PY{l+m+mi}{100}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} [('gonzaad01', 'Gonzalez', 'Adrian', 'BOS', 282.0, 159),
+          ('willite01', 'Williams', 'Ted', 'BOS', 2249.0, 156)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Note:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{sum()} coerces the text values of games played to a number.
+  \item
+    \texttt{max()} does not, because \texttt{max} is a valid aggregation
+    operator on text.
+  \item
+    Without the explicit cast, you get the maximum value in string sort
+    order, i.e.
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select \PYZbs{}
+             \PY{n}{people}\PY{o}{.}\PY{n}{playerID} \PY{k}{as} \PY{n}{playerid}\PY{p}{,} \PY{n}{nameLast}\PY{p}{,} \PY{n}{nameFirst}\PY{p}{,} \PYZbs{}
+             \PY{n}{teamID}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{G\PYZus{}all}\PY{p}{)} \PY{k}{as} \PY{n}{total\PYZus{}games}\PY{p}{,} \PYZbs{}
+             \PY{n+nb}{max}\PY{p}{(}\PY{n}{appearances}\PY{o}{.}\PY{n}{g\PYZus{}all}\PY{p}{)} \PY{k}{as} \PY{err}{`}\PY{n}{Max} \PY{n}{games}\PY{p}{,} \PY{n+nb}{any} \PY{n}{season}\PY{err}{`} \PY{k+kn}{from} \PYZbs{}
+         \PY{n+nn}{people} \PY{n}{join} \PY{n}{appearances} \PYZbs{}
+             \PY{n}{on} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+         \PY{n}{where} \PYZbs{}
+             \PY{n}{appearances}\PY{o}{.}\PY{n}{teamID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{people}\PY{o}{.}\PY{n}{birthCity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Diego}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+             \PY{o+ow}{and} \PYZbs{}
+             \PY{n}{appearances}\PY{o}{.}\PY{n}{G\PYZus{}all} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50} \PYZbs{}
+         \PY{n}{group} \PYZbs{}
+             \PY{n}{by} \PY{n}{people}\PY{o}{.}\PY{n}{playerid} \PYZbs{}
+         \PY{n}{having} \PYZbs{}
+             \PY{n}{total\PYZus{}games} \PY{o}{\PYZgt{}} \PY{l+m+mi}{100} \PYZbs{}
+         \PY{n}{limit} \PY{l+m+mi}{100}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} [('gonzaad01', 'Gonzalez', 'Adrian', 'BOS', 282.0, '159'),
+          ('willite01', 'Williams', 'Ted', 'BOS', 2249.0, '98')]
+\end{Verbatim}
+            
+    \subparagraph{Examples: Team Rosters}\label{examples-team-rosters}
+
+\begin{itemize}
+\tightlist
+\item
+  I would like basic information about every player who appeared for a
+  team in a season.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}player\PYZus{}by\PYZus{}team\PYZus{}year}\PY{p}{(}\PY{n}{teamId}\PY{p}{,} \PY{n}{yearId}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{q} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select people.playerid, nameLast, nameFirst, appearances.g\PYZus{}all as g\PYZus{}all }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PYZbs{}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ from people join appearances }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PYZbs{}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ on people.playerid=appearances.playerid }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PYZbs{}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ where yearid=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{yearId} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ and teamid = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{teamId} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+                     
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Query = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{q}\PY{p}{)}
+                 
+                     
+             \PY{n}{cursor} \PY{o}{=} \PY{n}{cnx}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+             \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{q}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{people} \PY{o}{=} \PY{n}{get\PYZus{}player\PYZus{}by\PYZus{}team\PYZus{}year}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2004}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{People = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{people}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{p}\PY{p}{:}
+                 \PY{n}{line} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}:10\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}:10\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}:10\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{playerid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nameLast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                           \PY{n}{p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nameFirst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZus{}all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Query =  select people.playerid, nameLast, nameFirst, appearances.g\_all as g\_all  from people join appearances  on people.playerid=appearances.playerid  where yearid='2004' and teamid = 'BOS'
+People = 
+
+adamste01 , Adams     , Terry     , 19        
+alvarab01 , Alvarez   , Abe       , 1         
+anderji02 , Anderson  , Jimmy     , 5         
+arroybr01 , Arroyo    , Bronson   , 32        
+astacpe01 , Astacio   , Pedro     , 5         
+bellhma01 , Bellhorn  , Mark      , 138       
+brownja04 , Brown     , Jamie     , 4         
+burksel01 , Burks     , Ellis     , 11        
+cabreor01 , Cabrera   , Orlando   , 58        
+castifr01 , Castillo  , Frank     , 2         
+crespce01 , Crespo    , Cesar     , 52        
+damonjo01 , Damon     , Johnny    , 150       
+daubabr01 , Daubach   , Brian     , 30        
+dinarle01 , DiNardo   , Lenny     , 22        
+dominan01 , Dominique , Andy      , 7         
+embreal01 , Embree    , Alan      , 71        
+foulkke01 , Foulke    , Keith     , 72        
+garcino01 , Garciaparra, Nomar     , 38        
+gutieri01 , Gutierrez , Ricky     , 21        
+hyzduad01 , Hyzdu     , Adam      , 17        
+jonesbo04 , Jones     , Bobby     , 3         
+kaplega01 , Kapler    , Gabe      , 136       
+kimby01   , Kim       , Byung-Hyun, 7         
+leskacu01 , Leskanic  , Curt      , 32        
+lowede01  , Lowe      , Derek     , 33        
+malasma01 , Malaska   , Mark      , 19        
+martian01 , Martinez  , Anastacio , 11        
+martipe02 , Martinez  , Pedro     , 33        
+martisa01 , Martinez  , Sandy     , 3         
+mccarda01 , McCarty   , Dave      , 91        
+mendora01 , Mendoza   , Ramiro    , 27        
+mientdo01 , Mientkiewicz, Doug      , 49        
+millake01 , Millar    , Kevin     , 150       
+mirabdo01 , Mirabelli , Doug      , 59        
+muellbi02 , Mueller   , Bill      , 110       
+myersmi01 , Myers     , Mike      , 25        
+nelsojo01 , Nelson    , Joe       , 3         
+nixontr01 , Nixon     , Trot      , 48        
+ortizda01 , Ortiz     , David     , 150       
+ramirma02 , Ramirez   , Manny     , 152       
+reesepo01 , Reese     , Pokey     , 96        
+roberda07 , Roberts   , Dave      , 45        
+schilcu01 , Schilling , Curt      , 32        
+seibeph01 , Seibel    , Phil      , 2         
+snydeea01 , Snyder    , Earl      , 1         
+timlimi01 , Timlin    , Mike      , 76        
+varitja01 , Varitek   , Jason     , 137       
+wakefti01 , Wakefield , Tim       , 32        
+willisc01 , Williamson, Scott     , 28        
+youklke01 , Youkilis  , Kevin     , 72        
+
+    \end{Verbatim}
+
+    \subparagraph{Example: Team Salaries}\label{example-team-salaries}
+
+\begin{itemize}
+\tightlist
+\item
+  I loaded two additional tables:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Teams
+  \item
+    Salaries
+  \end{itemize}
+\end{itemize}
+
+    Teams
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select yearID, rank, w, l  from teams limit 10;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} [('1997', '2', '84', '78'),
+          ('1998', '2', '85', '77'),
+          ('1999', '4', '70', '92'),
+          ('2000', '3', '82', '80'),
+          ('2001', '3', '75', '87'),
+          ('2002', '2', '99', '63'),
+          ('2003', '3', '77', '85'),
+          ('2004', '1', '92', '70'),
+          ('1998', '5', '65', '97'),
+          ('1999', '1', '100', '62')]
+\end{Verbatim}
+            
+    Salaries
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select * from salaries limit 10;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} [('1985', 'ATL', 'NL', 'barkele01', 870000),
+          ('1985', 'ATL', 'NL', 'bedrost01', 550000),
+          ('1985', 'ATL', 'NL', 'benedbr01', 545000),
+          ('1985', 'ATL', 'NL', 'campri01', 633333),
+          ('1985', 'ATL', 'NL', 'ceronri01', 625000),
+          ('1985', 'ATL', 'NL', 'chambch01', 800000),
+          ('1985', 'ATL', 'NL', 'dedmoje01', 150000),
+          ('1985', 'ATL', 'NL', 'forstte01', 483333),
+          ('1985', 'ATL', 'NL', 'garbege01', 772000),
+          ('1985', 'ATL', 'NL', 'harpete01', 250000)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  I want to know
+
+  \begin{itemize}
+  \tightlist
+  \item
+    TeamID
+  \item
+    YearID
+  \item
+    Wins (from Teams)
+  \item
+    Rank (Did the team finish 1st, 2nd, etc).
+  \item
+    Total salary (from Salary)
+  \end{itemize}
+\item
+  For all teams in the years 2010-2017.
+\item
+  Well, step 1 is to sum the players' salaries to get the teams'
+  salaries.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select teamID, yearID, sum(salary) from salaries where yearID \PYZgt{}= 2010 AND yearID \PYZlt{}= 2017 \PYZbs{}
+             \PY{n}{group} \PY{n}{by} \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID} \PYZbs{}
+             \PY{n}{limit} \PY{l+m+mi}{10}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} [('ARI', '2010', Decimal('60718166')),
+          ('ARI', '2011', Decimal('53639833')),
+          ('ARI', '2012', Decimal('73804833')),
+          ('ARI', '2013', Decimal('90132000')),
+          ('ARI', '2014', Decimal('97861500')),
+          ('ARI', '2015', Decimal('61834000')),
+          ('ARI', '2016', Decimal('87439063')),
+          ('ATL', '2010', Decimal('84423666')),
+          ('ATL', '2011', Decimal('87002692')),
+          ('ATL', '2012', Decimal('82829942'))]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Step 2: Get teamID, yearID, wins and rank.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select teamId, yearID, w, rank from teams where yearid \PYZgt{}= 2010 and yearid \PYZlt{}= 2017 limit 10;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} [('ARI', '2010', '65', '5'),
+          ('ARI', '2011', '94', '1'),
+          ('ARI', '2012', '81', '3'),
+          ('ARI', '2013', '81', '2'),
+          ('ARI', '2014', '64', '5'),
+          ('ARI', '2015', '79', '3'),
+          ('ARI', '2016', '69', '4'),
+          ('ARI', '2017', '93', '2'),
+          ('ATL', '2010', '91', '2'),
+          ('ATL', '2011', '89', '2')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Step 3: Now JOIN the two derived tables.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select a.teamid, a.yearid, a.total\PYZus{}salary, b.w, b.rank from \PYZbs{}
+             \PY{p}{(}\PY{n}{select} \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{salary}\PY{p}{)} \PY{k}{as} \PY{n}{total\PYZus{}salary} \PY{k+kn}{from} \PY{n+nn}{salaries} \PY{n}{where} \PYZbs{}
+              \PY{p}{(}\PY{n}{yearID} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2010} \PY{n}{AND} \PY{n}{yearID} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2017}\PY{p}{)} \PY{n}{group} \PY{n}{by} \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID}\PY{p}{)}  \PY{k}{as} \PY{n}{a} \PYZbs{}
+         \PY{n}{JOIN} \PYZbs{}
+         	\PY{p}{(}\PY{n}{select} \PY{n}{teamid}\PY{p}{,} \PY{n}{yearid}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{rank} \PY{k+kn}{from} \PY{n+nn}{teams} \PY{n}{where} \PYZbs{}
+              \PY{p}{(}\PY{n}{yearID} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2010} \PY{n}{AND} \PY{n}{yearID} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2017}\PY{p}{)} \PY{n}{group} \PY{n}{by} \PY{n}{teamID}\PY{p}{,} \PY{n}{yearID}\PY{p}{)}  \PY{k}{as} \PY{n}{b} \PYZbs{}
+         \PY{n}{on} \PY{n}{a}\PY{o}{.}\PY{n}{yearid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{yearid} \PY{o+ow}{and} \PY{n}{a}\PY{o}{.}\PY{n}{teamid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{teamid}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+210 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} [('ARI', '2010', Decimal('60718166'), '65', '5'),
+          ('ARI', '2011', Decimal('53639833'), '94', '1'),
+          ('ARI', '2012', Decimal('73804833'), '81', '3'),
+          ('ARI', '2013', Decimal('90132000'), '81', '2'),
+          ('ARI', '2014', Decimal('97861500'), '64', '5'),
+          ('ARI', '2015', Decimal('61834000'), '79', '3'),
+          ('ARI', '2016', Decimal('87439063'), '69', '4'),
+          ('ATL', '2010', Decimal('84423666'), '91', '2'),
+          ('ATL', '2011', Decimal('87002692'), '89', '2'),
+          ('ATL', '2012', Decimal('82829942'), '94', '2'),
+          ('ATL', '2013', Decimal('87871525'), '96', '1'),
+          ('ATL', '2014', Decimal('97609000'), '79', '2'),
+          ('ATL', '2015', Decimal('71781250'), '67', '4'),
+          ('ATL', '2016', Decimal('68498291'), '68', '5'),
+          ('BAL', '2010', Decimal('81612500'), '66', '5'),
+          ('BAL', '2011', Decimal('85304038'), '69', '5'),
+          ('BAL', '2012', Decimal('77353999'), '93', '2'),
+          ('BAL', '2013', Decimal('84393333'), '85', '3'),
+          ('BAL', '2014', Decimal('103416000'), '96', '1'),
+          ('BAL', '2015', Decimal('115044833'), '81', '3'),
+          ('BAL', '2016', Decimal('161863456'), '89', '2'),
+          ('BOS', '2010', Decimal('162447333'), '89', '3'),
+          ('BOS', '2011', Decimal('161762475'), '90', '3'),
+          ('BOS', '2012', Decimal('173186617'), '69', '5'),
+          ('BOS', '2013', Decimal('151530000'), '97', '1'),
+          ('BOS', '2014', Decimal('139019929'), '71', '5'),
+          ('BOS', '2015', Decimal('181103400'), '78', '5'),
+          ('BOS', '2016', Decimal('188545761'), '93', '1'),
+          ('CHA', '2010', Decimal('105530000'), '88', '2'),
+          ('CHA', '2011', Decimal('127789000'), '79', '3'),
+          ('CHA', '2012', Decimal('96919500'), '85', '2'),
+          ('CHA', '2013', Decimal('120065277'), '63', '5'),
+          ('CHA', '2014', Decimal('81830500'), '73', '4'),
+          ('CHA', '2015', Decimal('112373700'), '76', '4'),
+          ('CHA', '2016', Decimal('112998667'), '78', '4'),
+          ('CHN', '2010', Decimal('146609000'), '75', '5'),
+          ('CHN', '2011', Decimal('125047329'), '71', '5'),
+          ('CHN', '2012', Decimal('88197033'), '61', '5'),
+          ('CHN', '2013', Decimal('100567726'), '66', '5'),
+          ('CHN', '2014', Decimal('65522500'), '73', '5'),
+          ('CHN', '2015', Decimal('115879310'), '97', '3'),
+          ('CHN', '2016', Decimal('154067668'), '103', '1'),
+          ('CIN', '2010', Decimal('71761542'), '91', '1'),
+          ('CIN', '2011', Decimal('75947134'), '79', '3'),
+          ('CIN', '2012', Decimal('82203616'), '97', '1'),
+          ('CIN', '2013', Decimal('106404462'), '90', '3'),
+          ('CIN', '2014', Decimal('108217500'), '76', '4'),
+          ('CIN', '2015', Decimal('113072286'), '64', '5'),
+          ('CIN', '2016', Decimal('88940059'), '68', '5'),
+          ('CLE', '2010', Decimal('61203966'), '69', '4'),
+          ('CLE', '2011', Decimal('48776566'), '80', '2'),
+          ('CLE', '2012', Decimal('78430300'), '68', '4'),
+          ('CLE', '2013', Decimal('75771800'), '92', '2'),
+          ('CLE', '2014', Decimal('82151899'), '85', '3'),
+          ('CLE', '2015', Decimal('87663766'), '81', '3'),
+          ('CLE', '2016', Decimal('74311900'), '94', '1'),
+          ('COL', '2010', Decimal('84227000'), '83', '3'),
+          ('COL', '2011', Decimal('88148071'), '73', '4'),
+          ('COL', '2012', Decimal('78069571'), '64', '5'),
+          ('COL', '2013', Decimal('74409071'), '74', '5'),
+          ('COL', '2014', Decimal('95403500'), '66', '4'),
+          ('COL', '2015', Decimal('95688600'), '68', '5'),
+          ('COL', '2016', Decimal('112645071'), '75', '3'),
+          ('DET', '2010', Decimal('122864928'), '81', '3'),
+          ('DET', '2011', Decimal('105700231'), '95', '1'),
+          ('DET', '2012', Decimal('132300000'), '88', '1'),
+          ('DET', '2013', Decimal('145989500'), '93', '1'),
+          ('DET', '2014', Decimal('152855500'), '90', '1'),
+          ('DET', '2015', Decimal('172284750'), '74', '5'),
+          ('DET', '2016', Decimal('194876481'), '86', '2'),
+          ('FLO', '2010', Decimal('57029719'), '80', '3'),
+          ('FLO', '2011', Decimal('56944000'), '72', '5'),
+          ('HOU', '2010', Decimal('92355500'), '76', '4'),
+          ('HOU', '2011', Decimal('70694000'), '56', '6'),
+          ('HOU', '2012', Decimal('60651000'), '55', '6'),
+          ('HOU', '2013', Decimal('17890700'), '51', '5'),
+          ('HOU', '2014', Decimal('35116300'), '70', '4'),
+          ('HOU', '2015', Decimal('72256200'), '86', '2'),
+          ('HOU', '2016', Decimal('94893700'), '84', '3'),
+          ('KCA', '2010', Decimal('71405210'), '67', '5'),
+          ('KCA', '2011', Decimal('35712000'), '71', '4'),
+          ('KCA', '2012', Decimal('60916225'), '72', '3'),
+          ('KCA', '2013', Decimal('80091725'), '86', '3'),
+          ('KCA', '2014', Decimal('74594075'), '89', '2'),
+          ('KCA', '2015', Decimal('112107025'), '95', '1'),
+          ('KCA', '2016', Decimal('131487125'), '81', '3'),
+          ('LAA', '2010', Decimal('104963866'), '80', '3'),
+          ('LAA', '2011', Decimal('138543166'), '86', '2'),
+          ('LAA', '2012', Decimal('154485166'), '89', '3'),
+          ('LAA', '2013', Decimal('124174750'), '78', '3'),
+          ('LAA', '2014', Decimal('121988250'), '98', '1'),
+          ('LAA', '2015', Decimal('120005415'), '85', '3'),
+          ('LAA', '2016', Decimal('137251333'), '74', '4'),
+          ('LAN', '2010', Decimal('95358016'), '80', '4'),
+          ('LAN', '2011', Decimal('104188999'), '82', '3'),
+          ('LAN', '2012', Decimal('95143575'), '86', '2'),
+          ('LAN', '2013', Decimal('223362196'), '92', '1'),
+          ('LAN', '2014', Decimal('217014600'), '94', '1'),
+          ('LAN', '2015', Decimal('215792000'), '92', '1'),
+          ('LAN', '2016', Decimal('221288380'), '91', '1'),
+          ('MIA', '2012', Decimal('118078000'), '69', '5'),
+          ('MIA', '2013', Decimal('33601900'), '62', '5'),
+          ('MIA', '2014', Decimal('41836900'), '77', '4'),
+          ('MIA', '2015', Decimal('68056500'), '71', '3'),
+          ('MIA', '2016', Decimal('77314202'), '79', '3'),
+          ('MIL', '2010', Decimal('81108278'), '77', '3'),
+          ('MIL', '2011', Decimal('85497333'), '96', '1'),
+          ('MIL', '2012', Decimal('97653944'), '83', '3'),
+          ('MIL', '2013', Decimal('76947033'), '74', '4'),
+          ('MIL', '2014', Decimal('101217000'), '82', '3'),
+          ('MIL', '2015', Decimal('100850000'), '68', '4'),
+          ('MIL', '2016', Decimal('68775237'), '73', '4'),
+          ('MIN', '2010', Decimal('97559166'), '94', '1'),
+          ('MIN', '2011', Decimal('112737000'), '63', '5'),
+          ('MIN', '2012', Decimal('94085000'), '66', '5'),
+          ('MIN', '2013', Decimal('75337500'), '66', '4'),
+          ('MIN', '2014', Decimal('83762500'), '70', '5'),
+          ('MIN', '2015', Decimal('107755000'), '83', '2'),
+          ('MIN', '2016', Decimal('102583200'), '59', '5'),
+          ('NYA', '2010', Decimal('206333389'), '95', '2'),
+          ('NYA', '2011', Decimal('202275028'), '97', '1'),
+          ('NYA', '2012', Decimal('196522289'), '95', '1'),
+          ('NYA', '2013', Decimal('231978886'), '85', '4'),
+          ('NYA', '2014', Decimal('197543907'), '84', '2'),
+          ('NYA', '2015', Decimal('212751957'), '87', '2'),
+          ('NYA', '2016', Decimal('222997792'), '84', '4'),
+          ('NYN', '2010', Decimal('134422942'), '79', '4'),
+          ('NYN', '2011', Decimal('118847309'), '77', '4'),
+          ('NYN', '2012', Decimal('93353983'), '74', '4'),
+          ('NYN', '2013', Decimal('49448346'), '74', '4'),
+          ('NYN', '2014', Decimal('85556990'), '79', '3'),
+          ('NYN', '2015', Decimal('96766683'), '90', '1'),
+          ('NYN', '2016', Decimal('133889129'), '87', '2'),
+          ('OAK', '2010', Decimal('55254900'), '81', '2'),
+          ('OAK', '2011', Decimal('66536500'), '74', '3'),
+          ('OAK', '2012', Decimal('55372500'), '94', '1'),
+          ('OAK', '2013', Decimal('60132500'), '96', '1'),
+          ('OAK', '2014', Decimal('72408400'), '88', '2'),
+          ('OAK', '2015', Decimal('79053501'), '68', '5'),
+          ('OAK', '2016', Decimal('86806234'), '69', '5'),
+          ('PHI', '2010', Decimal('141928379'), '97', '1'),
+          ('PHI', '2011', Decimal('172976379'), '102', '1'),
+          ('PHI', '2012', Decimal('174538938'), '81', '3'),
+          ('PHI', '2013', Decimal('169863189'), '73', '4'),
+          ('PHI', '2014', Decimal('180944967'), '73', '5'),
+          ('PHI', '2015', Decimal('111693000'), '63', '5'),
+          ('PHI', '2016', Decimal('58980000'), '71', '4'),
+          ('PIT', '2010', Decimal('34943000'), '57', '6'),
+          ('PIT', '2011', Decimal('45047000'), '72', '4'),
+          ('PIT', '2012', Decimal('62951999'), '79', '4'),
+          ('PIT', '2013', Decimal('77062000'), '94', '2'),
+          ('PIT', '2014', Decimal('77178000'), '88', '2'),
+          ('PIT', '2015', Decimal('88892499'), '98', '2'),
+          ('PIT', '2016', Decimal('103778833'), '78', '3'),
+          ('SDN', '2010', Decimal('37799300'), '90', '2'),
+          ('SDN', '2011', Decimal('45869140'), '71', '5'),
+          ('SDN', '2012', Decimal('55244700'), '76', '4'),
+          ('SDN', '2013', Decimal('65585500'), '76', '3'),
+          ('SDN', '2014', Decimal('75685700'), '77', '3'),
+          ('SDN', '2015', Decimal('118441300'), '74', '4'),
+          ('SDN', '2016', Decimal('101424814'), '68', '5'),
+          ('SEA', '2010', Decimal('86510000'), '61', '4'),
+          ('SEA', '2011', Decimal('86110600'), '67', '4'),
+          ('SEA', '2012', Decimal('81978100'), '75', '4'),
+          ('SEA', '2013', Decimal('74005043'), '71', '4'),
+          ('SEA', '2014', Decimal('92531100'), '87', '3'),
+          ('SEA', '2015', Decimal('122208700'), '76', '4'),
+          ('SEA', '2016', Decimal('135683339'), '86', '2'),
+          ('SFN', '2010', Decimal('98641333'), '92', '1'),
+          ('SFN', '2011', Decimal('118198333'), '86', '2'),
+          ('SFN', '2012', Decimal('117620683'), '94', '1'),
+          ('SFN', '2013', Decimal('140180334'), '76', '4'),
+          ('SFN', '2014', Decimal('163510167'), '88', '2'),
+          ('SFN', '2015', Decimal('164701500'), '84', '2'),
+          ('SFN', '2016', Decimal('172253778'), '87', '2'),
+          ('SLN', '2010', Decimal('93540751'), '86', '2'),
+          ('SLN', '2011', Decimal('105433572'), '90', '2'),
+          ('SLN', '2012', Decimal('110300862'), '88', '2'),
+          ('SLN', '2013', Decimal('92260110'), '97', '1'),
+          ('SLN', '2014', Decimal('120693000'), '90', '1'),
+          ('SLN', '2015', Decimal('119241500'), '100', '1'),
+          ('SLN', '2016', Decimal('143053500'), '86', '2'),
+          ('TBA', '2010', Decimal('71923471'), '96', '1'),
+          ('TBA', '2011', Decimal('41053571'), '91', '2'),
+          ('TBA', '2012', Decimal('64173500'), '90', '3'),
+          ('TBA', '2013', Decimal('52955272'), '92', '2'),
+          ('TBA', '2014', Decimal('72689100'), '77', '4'),
+          ('TBA', '2015', Decimal('64521233'), '80', '4'),
+          ('TBA', '2016', Decimal('57097310'), '68', '5'),
+          ('TEX', '2010', Decimal('55250544'), '90', '1'),
+          ('TEX', '2011', Decimal('92299264'), '96', '1'),
+          ('TEX', '2012', Decimal('120510974'), '93', '2'),
+          ('TEX', '2013', Decimal('112522600'), '91', '2'),
+          ('TEX', '2014', Decimal('112255059'), '67', '5'),
+          ('TEX', '2015', Decimal('143742789'), '88', '1'),
+          ('TEX', '2016', Decimal('176038723'), '95', '1'),
+          ('TOR', '2010', Decimal('62234000'), '85', '4'),
+          ('TOR', '2011', Decimal('62567800'), '81', '4'),
+          ('TOR', '2012', Decimal('75009200'), '73', '4'),
+          ('TOR', '2013', Decimal('126288100'), '74', '5'),
+          ('TOR', '2014', Decimal('109920100'), '83', '3'),
+          ('TOR', '2015', Decimal('112992400'), '93', '1'),
+          ('TOR', '2016', Decimal('138701700'), '89', '2'),
+          ('WAS', '2010', Decimal('61400000'), '69', '5'),
+          ('WAS', '2011', Decimal('63856928'), '80', '3'),
+          ('WAS', '2012', Decimal('80855143'), '98', '1'),
+          ('WAS', '2013', Decimal('113703270'), '86', '2'),
+          ('WAS', '2014', Decimal('131983680'), '96', '1'),
+          ('WAS', '2015', Decimal('155587472'), '83', '2'),
+          ('WAS', '2016', Decimal('141652646'), '95', '1')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  Why is this query interesting? An obvious question when playing
+  Moneyball or supporting a team is, "Does spending more money always
+  help?"
+\item
+  Let's find out!
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{pymysql}\PY{n+nn}{.}\PY{n+nn}{cursors}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{json}
+         
+         \PY{c+c1}{\PYZsh{} The database server is running somewhere in the network.}
+         \PY{c+c1}{\PYZsh{} I must specify the IP address (HW server) and port number}
+         \PY{c+c1}{\PYZsh{} (connection that SW server is listening on)}
+         \PY{c+c1}{\PYZsh{} Also, I do not want to allow anyone to access the database}
+         \PY{c+c1}{\PYZsh{} and different people have different permissions. So, the}
+         \PY{c+c1}{\PYZsh{} client must log on.}
+         
+         
+         \PY{c+c1}{\PYZsh{} Connect to the database over the network. Use the connection}
+         \PY{c+c1}{\PYZsh{} to send commands to the DB.}
+         \PY{n}{cnx} \PY{o}{=} \PY{n}{pymysql}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localhost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{n}{user}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{n}{password}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{n}{db}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lahman2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{n}{charset}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8mb4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{n}{cursorclass}\PY{o}{=}\PY{n}{pymysql}\PY{o}{.}\PY{n}{cursors}\PY{o}{.}\PY{n}{DictCursor}\PY{p}{)}
+         
+         \PY{n}{q} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{select a.teamid, a.yearid, a.total\PYZus{}salary, b.w from }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{    (select teamID, yearID, sum(salary) as total\PYZus{}salary from salaries where }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{     (yearID \PYZgt{}= 2010 AND yearID \PYZlt{}= 2017) group by teamID, yearID)  as a }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{JOIN }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{	(select teamid, yearid, w from teams where }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{     (yearID \PYZgt{}= 2010 AND yearID \PYZlt{}= 2017) group by teamID, yearID)  as b }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{on a.yearid = b.yearid and a.teamid = b.teamid}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{cnx}\PY{p}{)}\PY{p}{;}
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:}     teamid yearid  total\_salary    w
+         0      ARI   2010    60718166.0   65
+         1      ARI   2011    53639833.0   94
+         2      ARI   2012    73804833.0   81
+         3      ARI   2013    90132000.0   81
+         4      ARI   2014    97861500.0   64
+         5      ARI   2015    61834000.0   79
+         6      ARI   2016    87439063.0   69
+         7      ATL   2010    84423666.0   91
+         8      ATL   2011    87002692.0   89
+         9      ATL   2012    82829942.0   94
+         10     ATL   2013    87871525.0   96
+         11     ATL   2014    97609000.0   79
+         12     ATL   2015    71781250.0   67
+         13     ATL   2016    68498291.0   68
+         14     BAL   2010    81612500.0   66
+         15     BAL   2011    85304038.0   69
+         16     BAL   2012    77353999.0   93
+         17     BAL   2013    84393333.0   85
+         18     BAL   2014   103416000.0   96
+         19     BAL   2015   115044833.0   81
+         20     BAL   2016   161863456.0   89
+         21     BOS   2010   162447333.0   89
+         22     BOS   2011   161762475.0   90
+         23     BOS   2012   173186617.0   69
+         24     BOS   2013   151530000.0   97
+         25     BOS   2014   139019929.0   71
+         26     BOS   2015   181103400.0   78
+         27     BOS   2016   188545761.0   93
+         28     CHA   2010   105530000.0   88
+         29     CHA   2011   127789000.0   79
+         ..     {\ldots}    {\ldots}           {\ldots}  {\ldots}
+         180    SLN   2015   119241500.0  100
+         181    SLN   2016   143053500.0   86
+         182    TBA   2010    71923471.0   96
+         183    TBA   2011    41053571.0   91
+         184    TBA   2012    64173500.0   90
+         185    TBA   2013    52955272.0   92
+         186    TBA   2014    72689100.0   77
+         187    TBA   2015    64521233.0   80
+         188    TBA   2016    57097310.0   68
+         189    TEX   2010    55250544.0   90
+         190    TEX   2011    92299264.0   96
+         191    TEX   2012   120510974.0   93
+         192    TEX   2013   112522600.0   91
+         193    TEX   2014   112255059.0   67
+         194    TEX   2015   143742789.0   88
+         195    TEX   2016   176038723.0   95
+         196    TOR   2010    62234000.0   85
+         197    TOR   2011    62567800.0   81
+         198    TOR   2012    75009200.0   73
+         199    TOR   2013   126288100.0   74
+         200    TOR   2014   109920100.0   83
+         201    TOR   2015   112992400.0   93
+         202    TOR   2016   138701700.0   89
+         203    WAS   2010    61400000.0   69
+         204    WAS   2011    63856928.0   80
+         205    WAS   2012    80855143.0   98
+         206    WAS   2013   113703270.0   86
+         207    WAS   2014   131983680.0   96
+         208    WAS   2015   155587472.0   83
+         209    WAS   2016   141652646.0   95
+         
+         [210 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  Let's pare this down by "projecting" only wins and salary.
+\item
+  We can then plot and analyze.
+\item
+  We will use Pandas for this.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:}      total\_salary    w
+         75     17890700.0   51
+         101    33601900.0   62
+         147    34943000.0   57
+         76     35116300.0   70
+         80     35712000.0   71
+         154    37799300.0   90
+         183    41053571.0   91
+         102    41836900.0   77
+         148    45047000.0   72
+         155    45869140.0   71
+         50     48776566.0   80
+         129    49448346.0   74
+         185    52955272.0   92
+         1      53639833.0   94
+         156    55244700.0   76
+         189    55250544.0   90
+         133    55254900.0   81
+         135    55372500.0   94
+         71     56944000.0   72
+         70     57029719.0   80
+         188    57097310.0   68
+         146    58980000.0   71
+         136    60132500.0   96
+         74     60651000.0   55
+         0      60718166.0   65
+         81     60916225.0   72
+         49     61203966.0   69
+         203    61400000.0   69
+         5      61834000.0   79
+         196    62234000.0   85
+         ..            {\ldots}  {\ldots}
+         41    154067668.0  103
+         88    154485166.0   89
+         208   155587472.0   83
+         22    161762475.0   90
+         20    161863456.0   89
+         21    162447333.0   89
+         172   163510167.0   88
+         173   164701500.0   84
+         143   169863189.0   73
+         174   172253778.0   87
+         68    172284750.0   74
+         141   172976379.0  102
+         23    173186617.0   69
+         142   174538938.0   81
+         195   176038723.0   95
+         144   180944967.0   73
+         26    181103400.0   78
+         27    188545761.0   93
+         69    194876481.0   86
+         121   196522289.0   95
+         123   197543907.0   84
+         120   202275028.0   97
+         119   206333389.0   95
+         124   212751957.0   87
+         98    215792000.0   92
+         97    217014600.0   94
+         99    221288380.0   91
+         125   222997792.0   84
+         96    223362196.0   92
+         122   231978886.0   85
+         
+         [210 rows x 2 columns]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  Do not worry if you do not understand Pandas. We will use extensively
+  later in course.
+\item
+  You can see, however, why I did not want you to use Pandas for HW 1
+  for CSVs. It is basically an in memory, relational databases. (See
+  \href{https://pandas.pydata.org/pandas-docs/stable/comparison_with_sql.html}{Pandas
+  comparison with SQL})
+\item
+  Let's plot the data and do a quick visual examination.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Team Salary}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+17890700.0 231978886.0 51 103
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  I would have hoped that wins increased with salary, which is the
+  straight line.
+\item
+  Seems to be all over the place.
+\item
+  What is the correlation?
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:}               total\_salary         w
+         total\_salary      1.000000  0.339423
+         w                 0.339423  1.000000
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  \(0.34\) is a weak, positive correlation.
+\end{itemize}
+
+    \subparagraph{Sumary}\label{sumary}
+
+\begin{itemize}
+\item
+  We have seen an example of a JOIN useful for a web app, e.g.
+  summarizing information that might go on a baseball card.
+\item
+  We have seen an example of a JOIN useful for data analysis, which IS A
+  VERY commin usage.
+\item
+  How do you learn to perform JOINs? Practice.
+\item
+  We will go through more examples, but first need to understand
+  additional JOIN options.
+\end{itemize}
+
+    \subsection{Types of JOIN}\label{types-of-join}
+
+\subsubsection{Overview}\label{overview}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\href{https://imgur.com/gallery/8u7fc}{Types of JOIN}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\item
+  Standard set operators, e.g. UNION, apply to individual elements as
+  wholes. All of \(A\) must be in set \(S_1\) and in set \(S_2\) for
+  \(A\) to be in \(S_1 \cap S_2.\)
+\item
+  \texttt{JOIN} defines set membership based on the columns in the
+  \texttt{ON} clause.
+\end{itemize}
+
+    \subsubsection{\texorpdfstring{Intersection and
+\texttt{INNER\ JOIN}}{Intersection and INNER JOIN}}\label{intersection-and-inner-join}
+
+\paragraph{UI01: Given a Team ID and Year Range, Find Hall of Fame
+Members}\label{ui01-given-a-team-id-and-year-range-find-hall-of-fame-members}
+
+"The National Baseball Hall of Fame and Museum is an American history
+museum and hall of fame, located in Cooperstown, New York, and operated
+by private interests. It serves as the central point for the study of
+the history of baseball in the United States and beyond, displays
+baseball-related artifacts and exhibits, and honors those who have
+excelled in playing, managing, and serving the sport. The Hall's motto
+is 'Preserving History, Honoring Excellence, Connecting Generations. ...
+... Among baseball fans, 'Hall of Fame' means not only the museum and
+facility in Cooperstown, New York, but the pantheon of players,
+managers, umpires, executives, and pioneers who have been enshrined in
+the Hall."
+(https://en.wikipedia.org/wiki/National\_Baseball\_Hall\_of\_Fame\_and\_Museum\#Selection\_process)
+
+\begin{itemize}
+\tightlist
+\item
+  I imported \texttt{Halloffame.csv.}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select * from halloffame where inducted = \PYZsq{}Y\PYZsq{} limit 10;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} [('cobbty01', '1936', 'BBWAA', '226', '170', '222', 'Y', 'Player', ''),
+          ('ruthba01', '1936', 'BBWAA', '226', '170', '215', 'Y', 'Player', ''),
+          ('wagneho01', '1936', 'BBWAA', '226', '170', '215', 'Y', 'Player', ''),
+          ('mathech01', '1936', 'BBWAA', '226', '170', '205', 'Y', 'Player', ''),
+          ('johnswa01', '1936', 'BBWAA', '226', '170', '189', 'Y', 'Player', ''),
+          ('lajoina01', '1937', 'BBWAA', '201', '151', '168', 'Y', 'Player', ''),
+          ('speaktr01', '1937', 'BBWAA', '201', '151', '165', 'Y', 'Player', ''),
+          ('youngcy01', '1937', 'BBWAA', '201', '151', '153', 'Y', 'Player', ''),
+          ('bulkemo99', '1937', 'Centennial', '', '', '', 'Y', 'Pioneer/Executive', ''),
+          ('johnsba99', '1937', 'Centennial', '', '', '', 'Y', 'Pioneer/Executive', '')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Players for the \emph{Boston Red Sox} since 2000.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select distinct playerid from appearances where teamid=\PYZsq{}BOS\PYZsq{} and yearid between 2000 and 2017 limit 10;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} [('alcanis01',),
+          ('alexama02',),
+          ('arrojro01',),
+          ('beckro01',),
+          ('berryse01',),
+          ('bicheda01',),
+          ('brognri01',),
+          ('burkhmo01',),
+          ('carrahe01',),
+          ('cormirh01',)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Answering the question is an \texttt{INNER\ JOIN} on the two derived
+  tables.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select a.playerid from \PYZbs{}
+            \PY{p}{(}\PY{n}{select} \PY{n}{playerid}\PY{p}{,} \PY{n}{yearid}\PY{p}{,} \PY{n}{inducted} \PY{k+kn}{from} \PY{n+nn}{halloffame} \PY{n}{where} \PY{n}{inducted}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{a} \PYZbs{}
+        \PY{n}{join} \PYZbs{}
+           \PY{p}{(}\PY{n}{select} \PY{n}{distinct} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{yearid} \PY{n}{between} \PY{l+m+mi}{2000} \PY{o+ow}{and} \PY{l+m+mi}{2017}\PY{p}{)} \PY{k}{as} \PY{n}{b} \PYZbs{}
+        \PY{n}{on} \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{playerid}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} [('henderi01',), ('martipe02',), ('smoltjo01',)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  We could provide a search form that answers the question. The three
+  inputs are:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{teamID}
+  \item
+    \texttt{start\ year}
+  \item
+    \texttt{end\ year}
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}team\PYZus{}hall\PYZus{}of\PYZus{}fame\PYZus{}players}\PY{p}{(}\PY{n}{team\PYZus{}ID}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} Query that finds the playerIDs of the relevant members of the Hall of Fame.}
+             \PY{n}{query} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{SELECT a.playerid from}
+         \PY{l+s+s1}{                (select playerid, yearid, inducted from halloffame where inducted=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{) as a }
+         \PY{l+s+s1}{            join }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{               (select distinct playerid from appearances where teamid=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{               yearid between }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{) as b }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{            on a.playerid = b.playerid;}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{} PlayerIDs are interesting, but knowing the names is more interesting.}
+             \PY{n}{q2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select playerID, nameLast as last\PYZus{}name, nameFirst as first\PYZus{}name from People where playerID in (}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Get a cursor.}
+             \PY{n}{cursor}\PY{o}{=}\PY{n}{cnx}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Execute the first query and get the results.}
+             \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{p}{(}\PY{n}{team\PYZus{}ID}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} The result is an array of dictionaries of the form \PYZob{} \PYZdq{}playerid\PYZdq{} : the id \PYZcb{}.}
+             \PY{c+c1}{\PYZsh{} Use a list comprehension to get the playerID values into an array.}
+             \PY{n}{keys} \PY{o}{=} \PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{playerid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{result}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Weird, spooky Python string multiplication. I will get a \PYZsq{}\PYZpc{}s\PYZsq{} for each member of the array.}
+             \PY{n}{format\PYZus{}strings} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{keys}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} More weird Python stuff. Use string formatting.}
+             \PY{n}{q2} \PY{o}{=} \PY{n}{q2} \PY{o}{\PYZpc{}} \PY{n}{format\PYZus{}strings}
+             
+             \PY{c+c1}{\PYZsh{} Run the query, get the answer and return it.}
+             \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{q2}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{keys}\PY{p}{)}\PY{p}{)}
+             \PY{n}{result2} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{answer} \PY{o}{=} \PY{n}{find\PYZus{}team\PYZus{}hall\PYZus{}of\PYZus{}fame\PYZus{}players}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{answer}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} [\{'first\_name': 'Rickey', 'last\_name': 'Henderson', 'playerID': 'henderi01'\},
+          \{'first\_name': 'Pedro', 'last\_name': 'Martinez', 'playerID': 'martipe02'\},
+          \{'first\_name': 'John', 'last\_name': 'Smoltz', 'playerID': 'smoltjo01'\}]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  BTW, how did I figure out all of that Python list comprehension and
+  formatting stuff, and how it works with PyMySQL?
+\end{itemize}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{Solving Problems}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\tightlist
+\item
+  Depending on your point of view, there is an "easier" way to do this.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select d.playerID, d.nameLast as last\PYZus{}name, d.nameFirst as first\PYZus{}name from \PYZbs{}
+             \PY{p}{(}\PY{n}{select} \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{k+kn}{from} \PYZbs{}
+                 \PY{p}{(}\PY{n}{select} \PY{n}{playerid}\PY{p}{,} \PY{n}{yearid}\PY{p}{,} \PY{n}{inducted} \PY{k+kn}{from} \PY{n+nn}{halloffame} \PY{n}{where} \PY{n}{inducted}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{a} \PYZbs{}
+                 \PY{n}{join} \PYZbs{}
+                    \PY{p}{(}\PY{n}{select} \PY{n}{distinct} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{b} \PYZbs{}
+                 \PY{n}{on} \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{playerid}\PY{p}{)} \PY{k}{as} \PY{n}{c} \PYZbs{}
+             \PY{n}{join} \PYZbs{}
+                 \PY{n}{people} \PY{k}{as} \PY{n}{d} \PYZbs{}
+             \PY{n}{on} \PYZbs{}
+                 \PY{n}{d}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{playerid}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} [('henderi01', 'Henderson', 'Rickey'),
+          ('martipe02', 'Martinez', 'Pedro'),
+          ('smoltjo01', 'Smoltz', 'John')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  And the new function is ...
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}team\PYZus{}hall\PYZus{}of\PYZus{}fame\PYZus{}players\PYZus{}2}\PY{p}{(}\PY{n}{team\PYZus{}ID}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} Query that finds the playerIDs of the relevant members of the Hall of Fame.}
+             \PY{n}{query} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{select d.playerID, d.nameLast as last\PYZus{}name, d.nameFirst as first\PYZus{}name from }
+         \PY{l+s+s1}{        (select a.playerid from }
+         \PY{l+s+s1}{            (select playerid, yearid, inducted from halloffame where inducted=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{) as a }
+         \PY{l+s+s1}{            join }
+         \PY{l+s+s1}{               (select distinct playerid from appearances where teamid=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and yearid between }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{) as b }
+         \PY{l+s+s1}{            on a.playerid = b.playerid) as c }
+         \PY{l+s+s1}{        join }
+         \PY{l+s+s1}{            people as d }
+         \PY{l+s+s1}{        on }
+         \PY{l+s+s1}{            d.playerid = c.playerid}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{} Get a cursor.}
+             \PY{n}{cursor}\PY{o}{=}\PY{n}{cnx}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Execute the first query and get the results.}
+             \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{p}{(}\PY{n}{team\PYZus{}ID}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{answer2} \PY{o}{=} \PY{n}{find\PYZus{}team\PYZus{}hall\PYZus{}of\PYZus{}fame\PYZus{}players\PYZus{}2}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{answer2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} [\{'first\_name': 'Rickey', 'last\_name': 'Henderson', 'playerID': 'henderi01'\},
+          \{'first\_name': 'Pedro', 'last\_name': 'Martinez', 'playerID': 'martipe02'\},
+          \{'first\_name': 'John', 'last\_name': 'Smoltz', 'playerID': 'smoltjo01'\}]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Consider the execution of the complex SQL statement.
+\end{itemize}
+
+\texttt{select\ d.playerID,\ d.nameLast\ as\ last\_name,\ d.nameFirst\ as\ first\_name\ from\ \ \ \ \ \ (select\ a.playerid\ \ \ \ \ \ \ \ \ \ from\ \ \ \ \ \ \ \ \ \ (select\ playerid,\ yearid,\ inducted\ from\ halloffame\ where\ inducted=\textquotesingle{}Y\textquotesingle{})\ as\ a\ \ \ \ \ \ \ \ \ \ join\ \ \ \ \ \ \ \ \ \ (select\ distinct\ playerid\ from\ appearances\ where\ teamid=\textquotesingle{}BOS\textquotesingle{}\ and\ yearid\ between\ \textquotesingle{}2002\textquotesingle{}\ and\ \textquotesingle{}2017\textquotesingle{})\ as\ b\ \ \ \ \ \ \ \ \ \ on\ a.playerid\ =\ b.playerid)\ as\ c\ \ \ \ \ \ join\ \ \ \ \ \ \ \ \ \ people\ as\ d\ \ \ \ \ \ on\ \ \ \ \ \ \ \ \ \ d.playerid\ =\ c.playerid}
+
+\begin{itemize}
+\tightlist
+\item
+  This demonstrates some of the complex concepts of the relational model
+  and SQL.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    An algebra: The statement is a relatively complex combination
+    \(\sigma, \pi, \bowtie\) operations.
+  \item
+    We declared what we wanted, and did not have to write filters,
+    duplicate removal and multiple nested loops.
+  \item
+    The query engine looked at the existence of indexes to determine the
+    most efficient way to execute.
+  \end{enumerate}
+\end{itemize}
+
+    \begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{Execution Diagram}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \paragraph{UI01: Find Traitors}\label{ui01-find-traitors}
+
+\begin{itemize}
+\item
+  "Rivalries in the Major League Baseball have occurred between many
+  teams and cities. Rivalries have arisen for many different reasons,
+  the primary ones including geographic proximity, familiarity with
+  opponents, various incidents, and cultural, linguistic, or national
+  pride."
+  (https://en.wikipedia.org/wiki/Major\_League\_Baseball\_rivalries)
+\item
+  Write a function/query supporting an input form.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The input form has the following fields:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Your favorite team.
+    \item
+      Your arch rival team.
+    \item
+      A range of years.
+    \end{itemize}
+  \item
+    The out is the list of arch-traitors who played for your favorite
+    team and the arch rival during the time period.
+  \end{itemize}
+\item
+  The first step is a query that finds playerID based on team and a year
+  range.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select playerid from appearances where teamid=\PYZsq{}BOS\PYZsq{} \PYZbs{}
+             \PY{o+ow}{and} \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}} \PY{n}{limit} \PY{l+m+mi}{10}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:} [('alcanis01',),
+          ('alexama02',),
+          ('arrojro01',),
+          ('beckro01',),
+          ('berryse01',),
+          ('bicheda01',),
+          ('brognri01',),
+          ('burkhmo01',),
+          ('carrahe01',),
+          ('cormirh01',)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  We are doing a \emph{self join} after applying a select to
+  \texttt{Appearances.}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} \PYZbs{}
+             \PY{n}{select} \PY{n}{distinct} \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{k+kn}{from} \PYZbs{}
+                 \PY{p}{(}\PY{n}{select} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PYZbs{}
+                  \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{a} \PYZbs{}
+                 \PY{n}{join} \PYZbs{}
+                 \PY{p}{(}\PY{n}{select} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NYA}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and}  \PYZbs{}
+                  \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{b} \PYZbs{}
+             \PY{n}{on} \PYZbs{}
+                 \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{playerid}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+40 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} [('lowede01',),
+          ('pridecu01',),
+          ('coneda01',),
+          ('erdosto01',),
+          ('olivejo01',),
+          ('clarkto02',),
+          ('damonjo01',),
+          ('embreal01',),
+          ('sanchre01',),
+          ('mendora01',),
+          ('bellhma01',),
+          ('mientdo01',),
+          ('myersmi01',),
+          ('youklke01',),
+          ('olerujo01',),
+          ('stantmi02',),
+          ('wellsda01',),
+          ('hinsker01',),
+          ('cashke01',),
+          ('ellsbja01',),
+          ('aardsda01',),
+          ('colonba01',),
+          ('greenni01',),
+          ('trabebi01',),
+          ('hillri01',),
+          ('mcdonda02',),
+          ('molingu01',),
+          ('aceveal01',),
+          ('millean01',),
+          ('bailean01',),
+          ('lillibr01',),
+          ('melanma01',),
+          ('thomaju01',),
+          ('drewst01',),
+          ('thornma01',),
+          ('capuach01',),
+          ('johnske05',),
+          ('layneto01',),
+          ('youngch04',),
+          ('nunezed02',)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Now add in the names of the traitors.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} \PYZbs{}
+             \PY{n}{select} \PY{n}{c}\PY{o}{.}\PY{n}{playerid}\PY{p}{,} \PY{n}{d}\PY{o}{.}\PY{n}{nameLast}\PY{p}{,} \PY{n}{d}\PY{o}{.}\PY{n}{nameFirst} \PY{k+kn}{from} \PYZbs{}
+                 \PY{p}{(}\PY{n}{select} \PY{n}{distinct} \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{k+kn}{from} \PYZbs{}
+                     \PY{p}{(}\PY{n}{select} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+                          \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{a} \PYZbs{}
+                     \PY{n}{join} \PYZbs{}
+                     \PY{p}{(}\PY{n}{select} \PY{n}{playerid} \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{where} \PY{n}{teamid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NYA}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{yearid} \PY{n}{between} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}} \PYZbs{}
+                          \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{b} \PYZbs{}
+                 \PY{n}{on} \PYZbs{}
+                     \PY{n}{a}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{playerid}\PY{p}{)} \PY{k}{as} \PY{n}{c} \PYZbs{}
+              \PY{n}{join} \PYZbs{}
+                  \PY{n}{people} \PY{k}{as} \PY{n}{d} \PYZbs{}
+              \PY{n}{on} \PY{n}{d}\PY{o}{.}\PY{n}{playerid} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{playerid} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+40 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} [('lowede01', 'Lowe', 'Derek'),
+          ('pridecu01', 'Pride', 'Curtis'),
+          ('coneda01', 'Cone', 'David'),
+          ('erdosto01', 'Erdos', 'Todd'),
+          ('olivejo01', 'Oliver', 'Joe'),
+          ('clarkto02', 'Clark', 'Tony'),
+          ('damonjo01', 'Damon', 'Johnny'),
+          ('embreal01', 'Embree', 'Alan'),
+          ('sanchre01', 'Sanchez', 'Rey'),
+          ('mendora01', 'Mendoza', 'Ramiro'),
+          ('bellhma01', 'Bellhorn', 'Mark'),
+          ('mientdo01', 'Mientkiewicz', 'Doug'),
+          ('myersmi01', 'Myers', 'Mike'),
+          ('youklke01', 'Youkilis', 'Kevin'),
+          ('olerujo01', 'Olerud', 'John'),
+          ('stantmi02', 'Stanton', 'Mike'),
+          ('wellsda01', 'Wells', 'David'),
+          ('hinsker01', 'Hinske', 'Eric'),
+          ('cashke01', 'Cash', 'Kevin'),
+          ('ellsbja01', 'Ellsbury', 'Jacoby'),
+          ('aardsda01', 'Aardsma', 'David'),
+          ('colonba01', 'Colon', 'Bartolo'),
+          ('greenni01', 'Green', 'Nick'),
+          ('trabebi01', 'Traber', 'Billy'),
+          ('hillri01', 'Hill', 'Rich'),
+          ('mcdonda02', 'McDonald', 'Darnell'),
+          ('molingu01', 'Molina', 'Gustavo'),
+          ('aceveal01', 'Aceves', 'Alfredo'),
+          ('millean01', 'Miller', 'Andrew'),
+          ('bailean01', 'Bailey', 'Andrew'),
+          ('lillibr01', 'Lillibridge', 'Brent'),
+          ('melanma01', 'Melancon', 'Mark'),
+          ('thomaju01', 'Thomas', 'Justin'),
+          ('drewst01', 'Drew', 'Stephen'),
+          ('thornma01', 'Thornton', 'Matt'),
+          ('capuach01', 'Capuano', 'Chris'),
+          ('johnske05', 'Johnson', 'Kelly'),
+          ('layneto01', 'Layne', 'Tommy'),
+          ('youngch04', 'Young', 'Chris'),
+          ('nunezed02', 'Nunez', 'Eduardo')]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}traitors}\PY{p}{(}\PY{n}{favorite}\PY{p}{,} \PY{n}{rival}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{        select c.playerid, d.nameLast, d.nameFirst from }
+         \PY{l+s+s1}{            (select distinct a.playerid from }
+         \PY{l+s+s1}{                (select playerid from appearances where teamid=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and yearid between }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{) as a }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{                join }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{                (select playerid from appearances where teamid=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and yearid between }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ and }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{) as b }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{            on }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{                a.playerid = b.playerid) as c }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{         join }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{             people as d }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s1}{         on d.playerid = c.playerid}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+             \PY{n}{cursor}\PY{o}{=}\PY{n}{cnx}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Execute the first query and get the results.}
+             \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{p}{(}\PY{n}{favorite}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{,} \PY{n}{rival}\PY{p}{,} \PY{n}{start\PYZus{}year}\PY{p}{,} \PY{n}{end\PYZus{}year}\PY{p}{)}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{result}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{answ} \PY{o}{=} \PY{n}{compute\PYZus{}traitors}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NYA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recent traitors = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{answ}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Recent traitors = 
+ [
+  \{
+    "playerid": "youngch04",
+    "nameLast": "Young",
+    "nameFirst": "Chris"
+  \},
+  \{
+    "playerid": "layneto01",
+    "nameLast": "Layne",
+    "nameFirst": "Tommy"
+  \}
+]
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Some explanations
+\end{itemize}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{Computing Traitors}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{Computing Traitors}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \subsubsection{An Aside: What is this \%s
+Stuff?}\label{an-aside-what-is-this-s-stuff}
+
+\begin{itemize}
+\item
+  PyMySql/Python/MySQL uses \%s as a "placeholder" for the parameter,
+  which is independent of the parameter type. This is a normal concept
+  in Python for dealing with formatting strings.
+\item
+  "This method executes the given database operation (query or command).
+  The parameters found in the tuple or dictionary params are bound to
+  the variables in the operation."
+  (https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html)
+\item
+  The \texttt{\%s} is the preferred method, and removes the need for
+  escaping strings inside strings. This also helps avoid SQL injection
+  and other errors.
+\end{itemize}
+
+    \subsubsection{LEFT and RIGHT JOIN}\label{left-and-right-join}
+
+\begin{itemize}
+\item
+  \texttt{UL01:} "I want to enter a player's ID on a we form and see the
+  player's salary information per year as part of summary statistics
+  that include appearances, batting, etc."
+\item
+  \texttt{UL02:} I want to enter a year and league, and see a table
+  containing team's performance and the total salary the teams paid to
+  players.
+\item
+  I loaded the CSV file \texttt{Salaries.csv.} The format of a row is:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{playerID}
+  \item
+    \texttt{yearID} is the year in which the team paid the player.
+  \item
+    \texttt{teamID} of the team the plaid the player.
+  \item
+    \texttt{lgID} is \texttt{NL} for National League and \texttt{AL} for
+    American League.
+  \item
+    \texttt{salary} is the amount paid to the player by the team in the
+    year.
+  \end{itemize}
+\item
+  A quick overview of the data is:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select * from salaries order by yearid asc limit 5;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} [('1985', 'ATL', 'NL', 'barkele01', 870000),
+          ('1985', 'ATL', 'NL', 'bedrost01', 550000),
+          ('1985', 'ATL', 'NL', 'benedbr01', 545000),
+          ('1985', 'ATL', 'NL', 'campri01', 633333),
+          ('1985', 'ATL', 'NL', 'ceronri01', 625000)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  An obvious \texttt{JOIN} is to \texttt{JOIN\ People,\ Appearances} and
+  \texttt{Salary} to get a feel for how much teams paid players in
+  various years, by position, etc.
+\item
+  The query above shows that we do not have salary information from
+  before 1985. Records on \texttt{People} and \texttt{Appearances} go
+  back much further in time. So, we have to focus on years 1985 or
+  later.
+\item
+  Let's consider the sizes of the tables.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select count(*) from salaries where yearid \PYZgt{}= 1985
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} [(26428,)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select count(*) from appearances where yearid \PYZgt{}= 1985
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:} [(42052,)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Clearly we have information about players on teams (appearances) for
+  which we do not have salary information. The basic join behavior
+  produces a table that has rows that match the \texttt{ON} clause
+  \textbf{in both tables.}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select count(*) from appearances join salaries \PYZbs{}
+             \PY{n}{on} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{n}{salaries}\PY{o}{.}\PY{n}{playerid} \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{teamid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{teamid} \PYZbs{}
+             \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{yearid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{yearid}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:} [(25432,)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  A standard \texttt{JOIN} clearly loses some rows related to
+  appearances. What if I want the table to have all of the appearance
+  information and the salary information, if the latter exists?
+\item
+  Let's look at the very first player in the appearances table.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select playerid, yearid, teamid, g\PYZus{}all from appearances where \PYZbs{}
+              \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aardsda01}\PY{l+s+s1}{\PYZsq{}} \PY{n}{order} \PY{n}{by} \PY{n}{yearid} \PY{n}{asc}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:} [('aardsda01', '2004', 'SFN', '11'),
+           ('aardsda01', '2006', 'CHN', '45'),
+           ('aardsda01', '2007', 'CHA', '25'),
+           ('aardsda01', '2008', 'BOS', '47'),
+           ('aardsda01', '2009', 'SEA', '73'),
+           ('aardsda01', '2010', 'SEA', '53'),
+           ('aardsda01', '2012', 'NYA', '1'),
+           ('aardsda01', '2013', 'NYN', '43'),
+           ('aardsda01', '2015', 'ATL', '33')]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  There are 9 records.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select appearances.playerid, appearances.teamid, appearances.yearid, appearances.g\PYZus{}all, salaries.salary \PYZbs{}
+              \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{join} \PY{n}{salaries} \PYZbs{}
+              \PY{n}{on} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{n}{salaries}\PY{o}{.}\PY{n}{playerid} \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{teamid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{teamid} \PYZbs{}
+              \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{yearid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{yearid} \PYZbs{}
+              \PY{n}{where} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aardsda01}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} [('aardsda01', 'BOS', '2008', '47', 403250),
+           ('aardsda01', 'CHA', '2007', '25', 387500),
+           ('aardsda01', 'NYA', '2012', '1', 500000),
+           ('aardsda01', 'SEA', '2009', '73', 419000),
+           ('aardsda01', 'SEA', '2010', '53', 2750000),
+           ('aardsda01', 'SFN', '2004', '11', 300000)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  But, the JOIN only has 6 rows. I have "lost" the fact that
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The player played appeared in some seasons.
+  \item
+    But I do not have salary information.
+  \end{itemize}
+\item
+  The solution is a \texttt{LEFT\ JOIN.} "The result of a left outer
+  join (or simply left join) for tables A and B always contains all rows
+  of the "left" table (A), even if the join-condition does not find any
+  matching row in the "right" table (B). This means that if the ON
+  clause matches 0 (zero) rows in B (for a given row in A), the join
+  will still return a row in the result (for that row)---but with NULL
+  in each column from B."
+  (https://en.wikipedia.org/wiki/Join\_(SQL)\#Left\_outer\_join)
+\item
+  We can modify the query so that we do not lose the information.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} select appearances.playerid, appearances.teamid, appearances.yearid, appearances.g\PYZus{}all, salaries.salary \PYZbs{}
+              \PY{k+kn}{from} \PY{n+nn}{appearances} \PY{n}{LEFT} \PY{n}{join} \PY{n}{salaries} \PYZbs{}
+              \PY{n}{on} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{n}{salaries}\PY{o}{.}\PY{n}{playerid} \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{teamid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{teamid} \PYZbs{}
+              \PY{o+ow}{and} \PY{n}{appearances}\PY{o}{.}\PY{n}{yearid} \PY{o}{=} \PY{n}{salaries}\PY{o}{.}\PY{n}{yearid} \PYZbs{}
+              \PY{n}{where} \PY{n}{appearances}\PY{o}{.}\PY{n}{playerid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aardsda01}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9 rows affected.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} [('aardsda01', 'ATL', '2015', '33', None),
+           ('aardsda01', 'BOS', '2008', '47', 403250),
+           ('aardsda01', 'CHA', '2007', '25', 387500),
+           ('aardsda01', 'CHN', '2006', '45', None),
+           ('aardsda01', 'NYA', '2012', '1', 500000),
+           ('aardsda01', 'NYN', '2013', '43', None),
+           ('aardsda01', 'SEA', '2009', '73', 419000),
+           ('aardsda01', 'SEA', '2010', '53', 2750000),
+           ('aardsda01', 'SFN', '2004', '11', 300000)]
+\end{Verbatim}
+            
+    \begin{itemize}
+\item
+  With this approach:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I have not lost information about appearances just because I also
+    asked for salary information.
+  \item
+    I have the option of various ways to repair the data, e.g. manual
+    entry, interpolation, ...
+  \end{itemize}
+\item
+  \texttt{RIGHT\ JOIN} has the same semantics, but avoids losing data in
+  the right table.
+\item
+  \texttt{FULL\ JOIN} is effectively a combination of right and left
+  join.
+\end{itemize}
+
+    \subsubsection{JOIN Summary}\label{join-summary}
+
+\begin{itemize}
+\item
+  You get good a joins the way you get good at everything else:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Practice
+  \item
+    Asks the TAs, me or Stack Overflow if you have a problem.
+  \end{itemize}
+\item
+  We will continue to see and learn from examples as we progress.
+\item
+  One approach is to think in terms of the Venn Diagrams and ask what
+  you want from the LEFT and RIGHT tables.
+\end{itemize}
+
+    \subsection{REST API}\label{rest-api}
+
+\subsubsection{Common Data Management
+Concepts}\label{common-data-management-concepts}
+
+\begin{itemize}
+\tightlist
+\item
+  Almost all database engines and models have the concepts of
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Objects that are some form of array of (name, value) pairs.
+  \item
+    Sets of similar or related objects.
+  \item
+    Four basic (CRUD) operations on a set
+
+    \begin{itemize}
+    \tightlist
+    \item
+      CREATE a new object and add to a set.
+    \item
+      RETRIEVE an object in a set based on a criteria.
+    \item
+      UPDATE an object in a set, e.g. change the data in the object.
+    \item
+      DELETE an object from a set, specifying the object(s) by some
+      criteria.
+    \end{itemize}
+  \end{itemize}
+\item
+  In the file systems/CSV model
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A set is a file, e.g. students.csv.
+  \item
+    Each object is a row in the file.
+  \item
+    The header row gives the names of each column.
+  \item
+    The CRUD processing involves writing a program that reads the file,
+    changes the two-dimensional array and writing the file.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      CREATE: Append a row and save the file.
+    \item
+      RETRIEVE: Scan the table and apply some kind of IF statement.
+    \item
+      UPDATE: Change a row in the two dimensional array.
+    \item
+      DELETE: Remove a row from the array.
+    \end{itemize}
+  \end{itemize}
+\item
+  In the "pure" relational model
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A set is a \emph{relation}.
+  \item
+    An object is a \emph{row} or \emph{tuple}.
+  \item
+    There is no support for CREATE, UPDATE or DELETE.
+  \item
+    There is an \emph{algebra} and language from producing a new
+    relation from existing relations that implements a support set of
+    RETRIEVE.
+  \end{itemize}
+\item
+  In SQL,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A set is a \emph{table}.
+  \item
+    An object is a \emph{row} or \emph{tuple}.
+  \item
+    INSERT is the create operation.
+  \item
+    UPDATE is the delete operation.
+  \item
+    DELETE is the delete operation.
+  \item
+    SELECT is the statement that realizes the relational \emph{algebra}.
+  \end{itemize}
+\item
+  In
+  \href{https://en.wikipedia.org/wiki/Representational_state_transfer}{Representational
+  state transfer} REST.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A set is a \emph{resource} that is a collection of \emph{resources.}
+  \item
+    An object is a resource.
+  \item
+    CREATE is HTTP POST
+  \item
+    RETRIEVE is HTTP GET
+  \item
+    UPDATE is HTTP PUT (or PATCH)
+  \item
+    DELETE is HTTP DELETE.
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{Oversimplified Explanation of REST
+API}\label{oversimplified-explanation-of-rest-api}
+
+\begin{itemize}
+\item
+  "Representational State Transfer (REST) is an architectural style that
+  defines a set of constraints to be used for creating web services. Web
+  Services that conform to the REST architectural style, or RESTful web
+  services, provide interoperability between computer systems on the
+  Internet. REST-compliant web services allow the requesting systems to
+  access and manipulate textual representations of web resources by
+  \textbf{using a uniform and predefined set of stateless operations.}
+  Other kinds of web services, such as SOAP web services, expose their
+  own arbitrary sets of operations." (Emphasis
+  added).(https://en.wikipedia.org/wiki/Representational\_state\_transfer)
+\item
+  Non-RESTful applications surface service/domain specific operations,
+  e.g.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{open\_account(...)}
+  \item
+    \texttt{transfer(...)}
+  \item
+    \texttt{check\_balance(...)}
+  \end{itemize}
+\item
+  The uniform, predefined REST operations are the HTTP Methods:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    GET
+  \item
+    PUT (or PATCH)
+  \item
+    POST
+  \item
+    DELETE
+  \end{itemize}
+\item
+  These represent Create-Retrieve-Update-Delete operations on
+  \textbf{resources} identified by \textbf{URLs.}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    POST is Create
+  \item
+    GET is Retrieve
+  \item
+    PUT (or PATCH) is Update
+  \item
+    DELETE is Delete.
+  \end{itemize}
+\item
+  \textbf{Note:} People often confuse:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Remote procedure call/service invocation using HTTP
+  \item
+    REST
+  \item
+    They are not the same thing.
+  \end{itemize}
+\item
+  The six core characteristics of the REST style are:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Client--server architecture
+  \item
+    Statelessness
+  \item
+    Cacheability
+  \item
+    Layered system
+  \item
+    Code on demand (optional)
+  \item
+    Uniform interface
+  \end{enumerate}
+\item
+  We are going to focus solely on a subset of (6) \(-\) Uniforn
+  interface.
+\item
+  You may also hear the term \textbf{Hypermedia As The Engine Of
+  Application State (HATEOAS).}
+\end{itemize}
+
+    \subsubsection{Retrieving Resources}\label{retrieving-resources}
+
+\begin{itemize}
+\tightlist
+\item
+  To retrieve a resource, a client performs \texttt{HTTP\ GET} on a
+  \texttt{Unified\ Resource\ Locator\ (URL).}
+\end{itemize}
+
+"A Uniform Resource Locator (URL), colloquially termed a web address, is
+a reference to a web resource that specifies its location on a computer
+network and a mechanism for retrieving it. A URL is a specific type of
+Uniform Resource Identifier (URI), although many people use the two
+terms interchangeably. URLs occur most commonly to reference web pages
+(http), but are also used for file transfer (ftp), email (mailto),
+database access (JDBC), and many other applications."
+(https://en.wikipedia.org/wiki/URL)
+
+\begin{itemize}
+\tightlist
+\item
+  Anatomy of a URL/URI
+\end{itemize}
+
+\begin{verbatim}
+URI = scheme:[//authority]path[?query][#fragment]
+\end{verbatim}
+
+\begin{itemize}
+\item
+  In this notation, \texttt{{[}...{]}} means optional.
+\item
+  \emph{Scheme} is the "protocol" or mechanism for connecting
+  to/accessing the resource.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For our purposes, the scheme is \texttt{http.}
+  \item
+    Other common schemes are \texttt{ftp,\ mailto,\ file,\ irc,\ sip.}
+  \end{itemize}
+\item
+  Our first URLs will be:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Collection resource: \texttt{http://127.0.0.1:5000/api/resource},
+    where \texttt{resource} are tables names like
+    \texttt{people,\ batting,\ ...}
+  \item
+    Instance resource:
+    \texttt{http://127.0.0.1:5000/api/resource/primary\_key,} where
+    \texttt{primary\_key} is the table's primary key.
+  \item
+    Both are equally valid resources.
+  \end{itemize}
+\item
+  We will start with \texttt{/resource/primary\_key} because it is
+  simpler.
+\item
+  \textbf{Note:} You have seen me use URLs for databases already.
+\end{itemize}
+
+\begin{verbatim}
+%sql mysql+pymysql://dbuser:dbuser@localhost/lahman2017
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{sqlalchemy}
+                
+        \PY{n}{url} \PY{o}{=} \PY{n}{sqlalchemy}\PY{o}{.}\PY{n}{engine}\PY{o}{.}\PY{n}{url}\PY{o}{.}\PY{n}{URL}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mysql+pymysql}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                        \PY{n}{username}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbuser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbuser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                        \PY{n}{host}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{localhost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{port}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3306}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{database}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lahman2017}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{query}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{URL = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{url}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+URL =  mysql+pymysql://dbuser:dbuser@localhost:3306/lahman2017
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  URL fields:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Schema is "database type + software driver" = \texttt{mysql+pymysql}
+  \item
+    Authority is \texttt{dbuser:dbuser}
+  \item
+    Path is \texttt{localhost:3306/lahman2017}
+  \end{itemize}
+\item
+  The connect code you see is the lower layer mapping of a JDBC/ODBC URL
+  to a database connection.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Connect}
+        \PY{n}{cnx} \PY{o}{=} \PY{n}{pymysql}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localhost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{user}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{password}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbuser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{db}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lahman2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{charset}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8mb4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{cursorclass}\PY{o}{=}\PY{n}{pymysql}\PY{o}{.}\PY{n}{cursors}\PY{o}{.}\PY{n}{DictCursor}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{/resource/primary\_key}\label{resourceprimary_key}
+
+\paragraph{An Example}\label{an-example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+         
+         \PY{n}{r} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://127.0.0.1:5000/api/people/willite01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The greatest hitter of all time is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The greatest hitter of all time is:  \{
+  "playerID": "willite01",
+  "birthYear": "1918",
+  "birthMonth": "8",
+  "birthDay": "30",
+  "birthCountry": "USA",
+  "birthState": "CA",
+  "birthCity": "San Diego",
+  "deathYear": "2002",
+  "deathMonth": "7",
+  "deathDay": "5",
+  "deathCountry": "USA",
+  "deathState": "FL",
+  "deathCity": "Inverness",
+  "nameFirst": "Ted",
+  "nameLast": "Williams",
+  "nameGiven": "Theodore Samuel",
+  "weight": "205",
+  "height": 75,
+  "bats": "L",
+  "throws": "R",
+  "debut": "1939-04-20",
+  "finalGame": "1960-09-28",
+  "retroID": "willt103",
+  "bbrefID": "willite01"
+\}
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\item
+  This example used a Python package.
+\item
+  The browser example will use JavaScript and
+  \href{https://docs.angularjs.org/api/ng/service/$http}{AngularJS' HTTP
+  service.}
+\item
+  Native applications in iOS or Android would use the language
+  libraries, e.g.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://developer.apple.com/documentation/foundation/url_loading_system}{Swift
+    URL Loading System}
+  \item
+    \href{https://github.com/codepath/android_guides/wiki/Using-Android-Async-Http-Client}{Android
+    Async HTTP Client}
+  \end{itemize}
+\item
+  What happened in the code above?
+\end{itemize}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+\tabularnewline
+\midrule
+\endhead
+\textbf{Jupyter/Flask/MySQL}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\tightlist
+\item
+  In the earlier web page examples, the browser connected directly to
+  Flask.
+\end{itemize}
+
+    \paragraph{Simplest Implementation}\label{simplest-implementation}
+
+\begin{itemize}
+\tightlist
+\item
+  REST Endpoint/Handler
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{raise} \PY{n+ne}{NotImplementedError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Do not run in IPython}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert to/from web native JSON and Python/RDB types.}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        
+        \PY{c+c1}{\PYZsh{} Include Flask packages}
+        \PY{k+kn}{from} \PY{n+nn}{flask} \PY{k}{import} \PY{n}{Flask}
+        \PY{k+kn}{from} \PY{n+nn}{flask} \PY{k}{import} \PY{n}{request}
+        
+        \PY{k+kn}{import} \PY{n+nn}{SimpleBO}
+        
+        \PY{c+c1}{\PYZsh{} The main program that executes. This call creates an instance of a}
+        \PY{c+c1}{\PYZsh{} class and the constructor starts the runtime.}
+        \PY{n}{app} \PY{o}{=} \PY{n}{Flask}\PY{p}{(}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+        
+        
+        \PY{n+nd}{@app}\PY{o}{.}\PY{n}{route}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/api/\PYZlt{}resource\PYZus{}name\PYZgt{}/\PYZlt{}primary\PYZus{}key\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}resource}\PY{p}{(}\PY{n}{resource\PYZus{}name}\PY{p}{,} \PY{n}{primary\PYZus{}key}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{result} \PY{o}{=} \PY{n}{SimpleBO}\PY{o}{.}\PY{n}{find\PYZus{}by\PYZus{}primary\PYZus{}key}\PY{p}{(}\PY{n}{resource\PYZus{}name}\PY{p}{,} \PY{n}{primary\PYZus{}key}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{result}\PY{p}{:}
+                \PY{k}{return} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Content\PYZhy{}Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{application/json; charset=utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NOT FOUND}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{404}
+        
+        \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{app}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  SimpleBO
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{raise} \PY{n+ne}{NotImplementedError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Do not run in IPython}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        
+        \PY{k+kn}{import} \PY{n+nn}{RDBDataTable}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        
+        \PY{n}{data\PYZus{}tables} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{data\PYZus{}tables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{people}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{RDBDataTable}\PY{o}{.}\PY{n}{RDBDataTable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cool}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{People}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{playerID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                       \PY{p}{\PYZob{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{host}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{localhost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbuser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbuser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{db}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lahman2017}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{find\PYZus{}by\PYZus{}primary\PYZus{}key}\PY{p}{(}\PY{n}{resource}\PY{p}{,} \PY{n}{primary\PYZus{}key}\PY{p}{)}\PY{p}{:}
+        
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    This function would do some business logic before accessing data.}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{c+c1}{\PYZsh{} My implementation and your homework will be a little more complex for primary key.}
+            \PY{n}{dt} \PY{o}{=} \PY{n}{data\PYZus{}tables}\PY{p}{[}\PY{n}{resource}\PY{p}{]}
+            \PY{n}{result} \PY{o}{=} \PY{n}{dt}\PY{o}{.}\PY{n}{find\PYZus{}by\PYZus{}primary\PYZus{}key}\PY{p}{(}\PY{p}{[}\PY{n}{primary\PYZus{}key}\PY{p}{]}\PY{p}{)}
+        
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    This function would do some business logic after accessing data.}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    \textbf{Observation:}
+
+\begin{itemize}
+\item
+  There is not very much business logic, and there will not be very much
+  in this simple example and homework (HW2).
+\item
+  You can see, however, how your data tables can fit into a larger
+  solution.
+\item
+  Your are going to expand an build out the relational database to
+  support the overall application.
+\item
+  My implementation is a little more sophisticated. The code uses a
+  convention to represent compound primary keys. The configuration and
+  code needs to understand 'the order' to map the string into the keys.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{r} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://127.0.0.1:5000/api/appearances/willite01\PYZus{}bos\PYZus{}1960}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The greatest hitter of all time}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s last year was: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The greatest hitter of all time's last year was:  [
+  \{
+    "playerID": "willite01",
+    "teamID": "BOS",
+    "yearID": "1960",
+    "lgID": "AL",
+    "G\_all": "113",
+    "GS": "87",
+    "G\_batting": "113",
+    "G\_defense": "86",
+    "G\_p": "0",
+    "G\_c": "0",
+    "G\_1b": "0",
+    "G\_2b": "0",
+    "G\_3b": "0",
+    "G\_ss": "0",
+    "G\_lf": "86",
+    "G\_cf": "0",
+    "G\_rf": "0",
+    "G\_of": "86",
+    "G\_dh": "0",
+    "G\_ph": "26",
+    "G\_pr": "0"
+  \}
+]
+
+    \end{Verbatim}
+
+    \subsubsection{Collection Resources}\label{collection-resources}
+
+\begin{itemize}
+\tightlist
+\item
+  Remember the format of a URL/URI
+\end{itemize}
+
+\begin{verbatim}
+URI = scheme:[//authority]path[?query][#fragment]
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the "query?"
+\end{itemize}
+
+"On the World Wide Web, a query string is the part of a uniform resource
+locator (URL) which assigns values to specified parameters."
+(https://en.wikipedia.org/wiki/Query\_string)
+
+\begin{itemize}
+\item
+  An example is
+  \texttt{http://example.com/path/to/page?name=ferret\&color=purple}
+\item
+  A common convention is to treat the query string like the "template"
+  from our XXXDataTables.
+\item
+  Having a special query parameters "fields=" is a convention for the
+  "project" behavior.
+\item
+  Example:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{r} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://127.0.0.1:5000/api/people?nameLast=Williams\PYZam{}fields=nameFirst,nameLast,throws,playerid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{People with names like the greatest hitter of all time are: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+People with names like the greatest hitter of all time are:  \{
+  "data": [
+    \{
+      "nameFirst": "Ace",
+      "nameLast": "Williams",
+      "throws": "L",
+      "playerid": "williac01"
+    \},
+    \{
+      "nameFirst": "Al",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willial02"
+    \},
+    \{
+      "nameFirst": "Albert",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willial03"
+    \},
+    \{
+      "nameFirst": "Art",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "williar01"
+    \},
+    \{
+      "nameFirst": "Bernie",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibe01"
+    \},
+    \{
+      "nameFirst": "Bernie",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibe02"
+    \},
+    \{
+      "nameFirst": "Billy",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibi01"
+    \},
+    \{
+      "nameFirst": "Billy",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibi02"
+    \},
+    \{
+      "nameFirst": "Bob",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibo01"
+    \},
+    \{
+      "nameFirst": "Brian",
+      "nameLast": "Williams",
+      "throws": "R",
+      "playerid": "willibr01"
+    \}
+  ],
+  "links": [
+    \{
+      "current": "/api/people?nameLast=Williams\&fields=nameFirst,nameLast,throws,playerid\&offset=0\&limit=10"
+    \},
+    \{
+      "next": "/api/people?nameLast=Williams\&fields=nameFirst,nameLast,throws,playerid\&offset=10\&limit=10"
+    \}
+  ]
+\}
+
+    \end{Verbatim}
+
+    \subsubsection{Some Examples}\label{some-examples}
+
+    \begin{itemize}
+\item
+  \textbf{HTTP GET mapping to find\_by\_template()}
+\item
+  Request
+\end{itemize}
+
+\begin{verbatim}
+http://localhost:5000/api/people?nameLast=Williams&birthCity=San Diego&fields=playerID,nameLast,nameFirst,birthCity
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Response
+\end{itemize}
+
+\begin{verbatim}
+{
+    "data": [
+        {
+            "playerID": "willite01",
+            "nameLast": "Williams",
+            "nameFirst": "Ted",
+            "birthCity": "San Diego"
+        },
+        {
+            "playerID": "willitr01",
+            "nameLast": "Williams",
+            "nameFirst": "Trevor",
+            "birthCity": "San Diego"
+        }
+    ],
+    "links": [
+        {
+            "current": "/api/people?nameLast=Williams&birthCity=San Diego&fields=playerID,nameLast,nameFirst,birthCity&offset=0&limit=10"
+        }
+    ]
+}
+\end{verbatim}
+
+    \textbf{HTTP GET Mapping to find\_by\_primary\_key()}
+
+\begin{itemize}
+\tightlist
+\item
+  Request
+\end{itemize}
+
+\begin{verbatim}
+http://localhost:5000/api/batting/willite01_BOS_1960_1?fields=playerID, G,AB,H
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Response
+\end{itemize}
+
+\begin{verbatim}
+{
+    "playerID": "willite01",
+    "G": "113",
+    "AB": "310",
+    "H": "98"
+}
+\end{verbatim}
+
+    \textbf{Following Paths}
+
+\begin{itemize}
+\tightlist
+\item
+  Request
+\end{itemize}
+
+\begin{verbatim}
+http://localhost:5000/api/people/willite01/batting
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Response
+\end{itemize}
+
+\begin{verbatim}
+[
+    {
+        "teamID": "BOS",
+        "yearID": "1939",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "185",
+        "AB": "565",
+        "HR": "31",
+        "RBI": "145"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1940",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "193",
+        "AB": "561",
+        "HR": "23",
+        "RBI": "113"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1941",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "185",
+        "AB": "456",
+        "HR": "37",
+        "RBI": "120"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1942",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "186",
+        "AB": "522",
+        "HR": "36",
+        "RBI": "137"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1946",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "176",
+        "AB": "514",
+        "HR": "38",
+        "RBI": "123"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1947",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "181",
+        "AB": "528",
+        "HR": "32",
+        "RBI": "114"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1948",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "188",
+        "AB": "509",
+        "HR": "25",
+        "RBI": "127"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1949",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "194",
+        "AB": "566",
+        "HR": "43",
+        "RBI": "159"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1950",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "106",
+        "AB": "334",
+        "HR": "28",
+        "RBI": "97"
+    },
+    {
+        "teamID": "BOS",
+        "yearID": "1951",
+        "stint": 1,
+        "lgID": "AL",
+        "H": "169",
+        "AB": "531",
+        "HR": "30",
+        "RBI": "126"
+    }
+]
+\end{verbatim}
+
+    \subsection{HW2}\label{hw2}
+
+\subsubsection{The Idea}\label{the-idea}
+
+    \begin{itemize}
+\item
+  I bet you guess the idea behind HW2 now.
+\item
+  You will:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Refine and enhance your RDBDataTable based on scenarios, feedback
+    and my examples.
+  \item
+    Implement a simple business layer that uses the RDBDataTable to
+    retrieve data.
+  \item
+    Define a set of REST endpoints in Flask (or NodeJS, Tomcat, ...)
+  \end{itemize}
+\item
+  The endpoint will support the following paths and HTTP operations
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{/\textless{}resource\textgreater{}}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      POST (INSERT)
+    \item
+      GET with query parameters and fields
+    \end{itemize}
+  \item
+    \texttt{/\textless{}resource\textgreater{}/\textless{}primary\_key\textgreater{}}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      GET with fields selection
+    \item
+      DELETE
+    \end{itemize}
+  \item
+    \texttt{/\textless{}resource1\textgreater{}/\textless{}primary\_key\textgreater{}/\textless{}resource1\textgreater{}}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      GET with fields
+    \item
+      POST (INSERT)
+    \end{itemize}
+  \item
+    \texttt{/roster}: Gets info about a team and year.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      GET with query parameters teamID, yearID
+    \item
+      Returns
+      \texttt{{[}\{playerID,\ nameLast,\ nameFirst,\ G\_all,\ H,\ AB\}{]}}
+    \end{itemize}
+  \item
+    \texttt{/career\_stats} Gets career totals for selected players.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      GET with query parameters to choose player based on fields in
+      \texttt{People.}
+    \item
+      Returns
+      \texttt{{[}\{playerID,\ nameLast,\ nameFirst,\ total\_h,\ total\_ab,\ career\_avg,\ total\_g\}{]}}
+    \end{itemize}
+  \item
+    \texttt{/career\_stats/\textless{}playerID\textgreater{}}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Same as above.
+    \item
+      For a specific playerID
+    \end{itemize}
+  \end{itemize}
+\item
+  I will build a simple UI for driving the operations.
+\item
+  GET operations that return a list will support:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Next and Previous links.
+  \item
+    ORDER BY using a single column in the result.
+  \end{itemize}
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
